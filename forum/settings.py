@@ -140,3 +140,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mailer.ep88@gmail.com'
 EMAIL_HOST_PASSWORD = 'qbxvutryeeutpmja'
+
+# Custom user model
+
+AUTH_USER_MODEL = "accounts.CustomUser"
