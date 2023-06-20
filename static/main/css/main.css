@@ -21,13 +21,8 @@ nav div {
 nav div a {
   margin-left: 0.5em;
 }
-@keyframes grow {
-  0% {
-    font-variation-settings: "BLOC" 213, "OPEN" 23;
-  }
-  100% {
-    font-variation-settings: "BLOC" 213, "OPEN" 1000;
-  }
+nav div a:hover {
+  font-weight: 600;
 }
 nav a {
   display: inline-block;
@@ -35,11 +30,9 @@ nav a {
   color: beige;
   text-decoration: none;
   font-size: 2em;
-  font-family: "littlebit-square-variable";
-  font-variation-settings: "BLOC" 213, "OPEN" 23;
+  font-family: "bitcount-mono-double-circle";
+  font-weight: 500;
 }
 nav a:hover {
-  font-variation-settings: "BLOC" 213, "OPEN" 1000;
-  animation-name: grow;
-  animation-duration: 0.5s;
+  color: white;
 }/*# sourceMappingURL=main.css.map */

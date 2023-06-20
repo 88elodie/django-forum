@@ -3,7 +3,7 @@
 $beige : beige;
 $black : #202020;
 $main_font : 'fig-serif';
-$nav_font : 'littlebit-square-variable';
+$nav_font : 'bitcount-mono-double-circle';
 
 * {
     margin: 0;
@@ -32,13 +32,8 @@ nav {
         a {
             margin-left: 0.5em;
         }
-    }
-    @keyframes grow {
-        0% {
-          font-variation-settings: 'BLOC' 213, 'OPEN' 23;
-        }
-        100% {
-          font-variation-settings: 'BLOC' 213, 'OPEN' 1000;
+        a:hover {
+            font-weight: 600;
         }
     }
     a{
@@ -48,11 +43,9 @@ nav {
         text-decoration: none;
         font-size: 2em;
         font-family: $nav_font;
-        font-variation-settings: 'BLOC' 213, 'OPEN' 23;
+        font-weight: 500;
     }
     a:hover {
-        font-variation-settings: 'BLOC' 213, 'OPEN' 1000;
-        animation-name: grow;
-        animation-duration: 0.5s;
+        color: white;
     }
 }
