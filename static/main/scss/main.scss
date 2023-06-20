@@ -1,4 +1,9 @@
-$bg_color : beige;
+@import 'home.scss';
+
+$beige : beige;
+$black : #202020;
+$main_font : 'fig-serif';
+$nav_font : 'littlebit-square-variable';
 
 * {
     margin: 0;
@@ -6,5 +11,48 @@ $bg_color : beige;
 }
 
 body {
-    background-color: $bg_color;
+    margin: 20px;
+    background-color: $black;
+    color: $beige;
+}
+
+main {
+    margin: 40px;
+    font-family: $main_font;
+    font-weight: 500;
+}
+
+// navigation
+
+nav {
+
+    div {
+        float: right;
+
+        a {
+            margin-left: 0.5em;
+        }
+    }
+    @keyframes grow {
+        0% {
+          font-variation-settings: 'BLOC' 213, 'OPEN' 23;
+        }
+        100% {
+          font-variation-settings: 'BLOC' 213, 'OPEN' 1000;
+        }
+    }
+    a{
+        display: inline-block;
+        width: fit-content;
+        color: $beige;
+        text-decoration: none;
+        font-size: 2em;
+        font-family: $nav_font;
+        font-variation-settings: 'BLOC' 213, 'OPEN' 23;
+    }
+    a:hover {
+        font-variation-settings: 'BLOC' 213, 'OPEN' 1000;
+        animation-name: grow;
+        animation-duration: 0.5s;
+    }
 }

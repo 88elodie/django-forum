@@ -4,5 +4,42 @@
 }
 
 body {
-  background-color: beige;
+  margin: 20px;
+  background-color: #202020;
+  color: beige;
+}
+
+main {
+  margin: 40px;
+  font-family: "fig-serif";
+  font-weight: 500;
+}
+
+nav div {
+  float: right;
+}
+nav div a {
+  margin-left: 0.5em;
+}
+@keyframes grow {
+  0% {
+    font-variation-settings: "BLOC" 213, "OPEN" 23;
+  }
+  100% {
+    font-variation-settings: "BLOC" 213, "OPEN" 1000;
+  }
+}
+nav a {
+  display: inline-block;
+  width: fit-content;
+  color: beige;
+  text-decoration: none;
+  font-size: 2em;
+  font-family: "littlebit-square-variable";
+  font-variation-settings: "BLOC" 213, "OPEN" 23;
+}
+nav a:hover {
+  font-variation-settings: "BLOC" 213, "OPEN" 1000;
+  animation-name: grow;
+  animation-duration: 0.5s;
 }/*# sourceMappingURL=main.css.map */
