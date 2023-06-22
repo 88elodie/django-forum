@@ -1,0 +1,52 @@
+// variables
+$black : #202020;
+$off-white : beige;
+$main_font : 'fig-serif';
+$menu_font : 'bitcount-mono-double-circle';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 20px;
+  background-color: $black;
+  color: $off-white;
+}
+
+main {
+  margin: 40px;
+  font-family: $main_font;
+  font-weight: 500;
+}
+
+// menu
+nav { 
+  div {
+    float: right;
+    a {
+      margin-left: 0.5em;
+    }
+    a:hover {
+      font-weight: 600;
+    }
+  }
+
+  a {
+    display: inline-block;
+    width: fit-content;
+    color: $off-white;
+    text-decoration: none;
+    font-size: 2em;
+    font-family: $menu_font;
+    font-weight: 500;
+  }
+  a:hover {
+    color: white;
+  }
+}
+
+// imports
+@import 'home.scss';
+@import 'posts/css/main.scss';

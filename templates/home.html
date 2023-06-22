@@ -4,10 +4,14 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+<div class="home-container">
+  <p>Hi {{ user.username }}!</p>
   <p>Welcome to the forum ...</p>
+</div>
 {% else %}
+<div class="home-container">
   <p>You are not logged in</p>
   <a href="{% url 'signup' %}">Sign Up</a>
+</div>
 {% endif %}
 {% endblock %}

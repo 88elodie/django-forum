@@ -5,13 +5,16 @@
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
   <link rel="stylesheet" href="https://use.typekit.net/ecm5gnz.css">
   {% load static %}
-  <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+  {% load compress %}
+  {% compress css %}
+  <link type="text/x-scss" rel="stylesheet" href="{% static 'main/css/main.scss' %}">
+  {% endcompress %}
 </head>
 <body>
     <nav>
         <a href="{% url 'home' %}" class="logo">✦✦✦</a>
         <div>
-            <a href="#">posts</a>
+            <a href="{% url 'posts' %}">posts</a>
             <a href="#">profile</a>
             {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">log out</a>
