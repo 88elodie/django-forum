@@ -1,6 +1,8 @@
 // variables
 $black : #202020;
+$darker_black : #171717;
 $off-white : beige;
+$accent-color : #9890bc;
 $main_font : 'fig-serif';
 $menu_font : 'bitcount-mono-double-circle';
 
@@ -52,7 +54,39 @@ nav {
   }
 }
 
+// forms
+form {
+  
+  input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: $main_font;
+    background-color: $off-white;
+    border: none;
+    border-radius: 4px;
+    height: 20px;
+    padding: 5px;
+
+    &:active, &:focus, &:focus-visible {
+      border: 2px solid $accent-color;
+      outline: 1px solid white;
+    }
+  }
+}
+
+button {
+  font-family: $main_font;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: $accent-color;
+  border: none;
+  border-radius: 3px;
+}
+
 // imports
 @import 'home.scss';
+@import 'signup.scss';
+@import 'login.scss';
 @import 'posts/css/main.scss';
 @import 'accounts/css/main.scss';

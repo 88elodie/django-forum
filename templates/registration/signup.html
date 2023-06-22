@@ -3,7 +3,8 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-  <h2>Sign up</h2>
+<div class="signup-container">
+  <h2>sign up</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -15,10 +16,12 @@
 			{% endfor %}
 		</ul>
 		{% endif %}
-	 	{{ field.label_tag }} {{ field }}
+	 	{{ field.label_tag }} <br> {{ field }}
 	</p>
 	{% endfor %}
-    <button type="submit">Sign Up</button>
+    <button type="submit">create account</button>
   </form>
-  <a href="{% url 'login' %}">Log In</a>
+  <span>already have an account ?</span><br>
+  <a href="{% url 'login' %}">log in</a>
+</div>
 {% endblock %}
