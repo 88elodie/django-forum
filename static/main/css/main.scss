@@ -21,6 +21,14 @@ main {
   font-weight: 500;
 }
 
+a {
+  color : $off-white;
+}
+
+a:hover {
+  color: white;
+}
+
 // menu
 nav { 
   div {
@@ -41,9 +49,6 @@ nav {
     font-size: 2em;
     font-family: $menu_font;
     font-weight: 500;
-  }
-  a:hover {
-    color: white;
   }
 }
 
