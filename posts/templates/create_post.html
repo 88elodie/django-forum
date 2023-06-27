@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block content %}
+
+<div class="posts-container">create post</div>
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+	<p>
+		{% if field.errors %}
+		<ul class="errorlist">
+			{% for error in field.errors %}
+			<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	 	{{ field.label_tag }} <br> {{ field }}
+	</p>
+	{% endfor %}
+    <button type="submit">publish post</button>
+  </form>
+
+{% endblock %}

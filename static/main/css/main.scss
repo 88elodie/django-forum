@@ -72,6 +72,21 @@ form {
       outline: 1px solid white;
     }
   }
+
+  textarea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: $main_font;
+    background-color: $off-white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+
+    &:active, &:focus, &:focus-visible {
+      border: 2px solid $accent-color;
+      outline: 1px solid white;
+    }
+  }
 }
 
 button {
