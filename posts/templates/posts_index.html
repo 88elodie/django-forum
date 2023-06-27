@@ -4,6 +4,16 @@
 
 {% block content %}
 
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="posts-container">posts</div>
 
 {% endblock %}

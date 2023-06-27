@@ -4,7 +4,19 @@
 
 {% block content %}
 
-<div class="posts-container">create post</div>
+<div class="posts-container">
+
+<h2>create post</h2>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 
 <form method="post">
     {% csrf_token %}
@@ -23,4 +35,5 @@
     <button type="submit">publish post</button>
   </form>
 
+</div>
 {% endblock %}
