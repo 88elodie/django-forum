@@ -11,7 +11,7 @@ from .models import Post
 # Create your views here.
 
 def index(request):
-    posts = Post.objects.all().order_by('-created_at')
+    posts = Post.objects.all().prefetch_related("author").order_by('-created_at')
     return render(request, 'posts_index.html', context={"posts": posts})
 
 def CreatePost(request):
