@@ -6,11 +6,13 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from .models import Post
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'posts_index.html')
+    posts = Post.objects.all()
+    return render(request, 'posts_index.html', context={"posts": posts})
 
 def CreatePost(request):
     if request.method == 'POST':
