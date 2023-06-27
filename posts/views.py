@@ -14,6 +14,11 @@ def index(request):
     posts = Post.objects.all().prefetch_related("author").order_by('-created_at')
     return render(request, 'posts_index.html', context={"posts": posts})
 
+def SinglePost(request, pk):
+    post = Post.objects.get(pk=pk)
+    return render(request, 'single_post.html',context={'post': post})
+
+@login_required
 def CreatePost(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)

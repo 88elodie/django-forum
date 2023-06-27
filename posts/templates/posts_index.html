@@ -22,6 +22,7 @@
     <div>
     <p>{{post.title}}</p>
     <p>{{post.body|truncatechars:15}}</p>
+    <a href="{% url 'single-post' post.id %}">view more</a>
     <p class="details">by {{post.author.username}} @ {{post.created_at}}</p>
     </div>
     {% endfor %}
