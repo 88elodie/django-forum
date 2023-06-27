@@ -5,22 +5,28 @@
 {% block content %}
 
 {% if messages %}
-<div class="messages">
+<section class="messages">
     {% for message in messages %}
     {% if message.tags == 'success' %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endif %}
     {% endfor %}
-</div>
+</section>
 {% endif %}
 
-<div class="posts-container">
+<article class="posts-container">
     <h2>posts</h2>
 
+    <section class="posts-grid">
     {% for post in posts %}
-    <p>{{post.title}} : {{post.body}} by {{post.author.username}} @ {{post.created_at}}</p>
+    <div>
+    <p>{{post.title}}</p>
+    <p>{{post.body|truncatechars:15}}</p>
+    <p class="details">by {{post.author.username}} @ {{post.created_at}}</p>
+    </div>
     {% endfor %}
+    </section>
 
-</div>
+</article>
 
 {% endblock %}

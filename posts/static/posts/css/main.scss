@@ -1,3 +1,35 @@
 .posts-container {
-    
+
+    h2 {
+        margin-bottom: 30px;
+    }
+
+    .posts-grid {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: stretch;
+    gap: 10px 10px;
+
+    & > div {
+        position: relative;
+        padding: 15px;
+        box-sizing: border-box;
+        min-width: 200px;
+        min-height: 200px;
+        width: 20%;
+        background-color: $darker_black;
+        border-radius: 4px;
+        flex-grow: 1;
+
+        p:first-child {
+            text-decoration: 1px underline $off-white;
+        }
+
+        .details {
+            position: absolute;
+            bottom: 15px;
+        }
+    }
+    }
+
 }
