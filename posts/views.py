@@ -27,17 +27,21 @@ def CreatePost(request):
             # add user to the instance ↓
             post_form.instance.author_id = request.user.id
             post_form.save()
-            messages.success(request, 'Your post was successfully created!')
+            messages.success(request, 'your post was successfully created!')
             # return redirect('seed:view_seed')
             return redirect('posts')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'please correct the error below.')
     else:
         post_form = PostForm()
     return render(request, "post_form.html", context={"form": post_form})
 
 def EditPost(request, pk):
     post = get_object_or_404(Post, id=pk)
+
+    if post.author_id != request.user.id:
+        messages.info(request, 'you are not allowed to edit this post')
+        return redirect('posts')
 
     if request.method == 'GET':
         context = {'form': PostForm(instance=post), 'id': pk}
@@ -46,11 +50,11 @@ def EditPost(request, pk):
         post_form = PostForm(request.POST, instance=post)
         if post_form.is_valid():
             post_form.save()
-            messages.success(request, 'The post has been updated successfully.')
+            messages.success(request, 'your post has been updated successfully.')
             post_id = post.id
             url = reverse('single-post', args=[post_id])
             return redirect(url)
         else:
-            messages.error(request, 'Please correct the following errors')
+            messages.error(request, 'please correct the following errors')
     return render(request, "post_form.html", context={"form": post_form})
 

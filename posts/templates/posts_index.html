@@ -7,7 +7,7 @@
 {% if messages %}
 <section class="messages">
     {% for message in messages %}
-    {% if message.tags == 'success' %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endif %}
     {% endfor %}
