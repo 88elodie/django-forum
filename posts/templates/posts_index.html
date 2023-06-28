@@ -19,12 +19,13 @@
 
     <section class="posts-grid">
     {% for post in posts %}
+    <a href="{% url 'single-post' post.id %}">
     <div>
-    <p>{{post.title}}</p>
-    <p>{{post.body|truncatechars:15}}</p>
-    <a href="{% url 'single-post' post.id %}">view more</a>
+    <p class="title">{{post.title}}</p>
+    <p class="body">{{post.body|truncatechars:50}}</p>
     <p class="details">by {{post.author.username}} @ {{post.created_at}}</p>
     </div>
+    </a>
     {% endfor %}
     </section>
 

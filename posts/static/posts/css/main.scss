@@ -10,25 +10,34 @@
     align-content: stretch;
     gap: 10px 10px;
 
-    & > div {
+    & > a {
         position: relative;
         padding: 15px;
         box-sizing: border-box;
         min-width: 200px;
-        min-height: 200px;
+        min-height: 180px;
         width: 20%;
         background-color: $darker_black;
         border-radius: 4px;
         flex-grow: 1;
+        text-decoration: none;
 
         p:first-child {
             text-decoration: 1px underline $off-white;
+            margin-bottom: 10px;
+            font-size: 18px;
         }
 
         .details {
             position: absolute;
             bottom: 15px;
+            color: $light-grey;
+
+            &:hover {
+                color: $light-grey;
+            }
         }
+
     }
     }
 
