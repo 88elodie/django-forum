@@ -8,6 +8,7 @@
     <h2>{{post.title}}</h2>
     <span>by {{post.author.username}}</span>
     <p>{{post.body}}</p>
+    <a href="{% url 'edit-post' post.id %}">edit</a>
     <!-- 'posted' time different formats depending on context -->
     {% now "w" as day %}
     {% now "W" as week %}

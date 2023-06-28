@@ -6,7 +6,7 @@
 
 <article class="posts-container">
 
-<h2>create post</h2>
+<h2>{% if id %} edit {% else %} create {% endif %} post</h2>
 
 {% if messages %}
 <section class="messages">
@@ -32,7 +32,7 @@
 	 	{{ field.label_tag }} <br> {{ field }}
 	</p>
 	{% endfor %}
-    <button type="submit">publish post</button>
+    <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
   </form>
 
 </article>
