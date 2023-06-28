@@ -7,6 +7,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Post
+import sys
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ def CreatePost(request):
         post_form = PostForm(request.POST)
         if post_form.is_valid():
             # add user to the instance ↓
-            post_form.instance.user = request.user
+            post_form.instance.author_id = request.user.id
             post_form.save()
             messages.success(request, 'Your post was successfully created!')
             # return redirect('seed:view_seed')
