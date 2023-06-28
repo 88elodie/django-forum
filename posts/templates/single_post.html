@@ -4,6 +4,32 @@
 
 {% block content %}
 
-<h2>{{post.title}}</h2>
+<section>
+    <h2>{{post.title}}</h2>
+    <span>by {{post.author.username}}</span>
+    <p>{{post.body}}</p>
+    <!-- 'posted' time different formats depending on context -->
+    {% now "w" as day %}
+    {% now "W" as week %}
+    {% now "o" as year %}
+    {% if 'minutes' in post.created_at|timesince %}
+        <span>posted {{post.created_at|timesince}} ago</span><br>
+    {% elif post.created_at|date:"w" == day %}
+        <span>posted today, {{post.created_at|time}}</span><br>
+    {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
+        <span>posted yesterday, {{post.created_at|time}}</span><br>
+    {% elif post.created_at|date:"W" == week %}
+        <span>posted {{post.created_at|date:"l g:i a"}}</span><br>
+    {% elif post.created_at|date:"o" == year %}
+        <span>posted {{post.created_at|date:"F jS \a\t g:i a"}}</span><br>
+    {% else %}
+        <span>posted {{post.created_at|date:"F jS o \a\t g:i a"}}</span>
+    {% endif %}
+
+    {% if post.updated_at is post.created_at %}
+    <span>updated {{post.updated_at}}</span>
+    {% endif %}
+</section>
+
 
 {% endblock %}

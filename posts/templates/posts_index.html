@@ -23,7 +23,25 @@
     <div>
     <p class="title">{{post.title}}</p>
     <p class="body">{{post.body|truncatechars:50}}</p>
-    <p class="details">by {{post.author.username}} @ {{post.created_at}}</p>
+    <p class="details">by {{post.author.username}} @ 
+        <!-- 'posted' time different formats depending on context -->
+        {% now "w" as day %}
+        {% now "W" as week %}
+        {% now "o" as year %}
+        {% if 'minutes' in post.created_at|timesince %}
+            <span>{{post.created_at|timesince}} ago</span>
+        {% elif post.created_at|date:"w" == day %}
+            <span>today, {{post.created_at|time}}</span>
+        {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
+            <span>yesterday, {{post.created_at|time}}</span>
+        {% elif post.created_at|date:"W" == week %}
+            <span>{{post.created_at|date:"l g:i a"}}</span><br>
+        {% elif post.created_at|date:"o" == year %}
+            <span>{{post.created_at|date:"F jS \a\t g:i a"}}</span>
+        {% else %}
+            <span>{{post.created_at|date:"F jS o \a\t g:i a"}}</span>
+        {% endif %}
+    </p>
     </div>
     </a>
     {% endfor %}

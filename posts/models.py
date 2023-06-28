@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import CustomUser
 from django.conf import settings
 from django.core.validators import MinLengthValidator
+from django.utils import timezone
 
 # Create your models here.
 
