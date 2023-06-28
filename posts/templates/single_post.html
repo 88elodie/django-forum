@@ -10,6 +10,7 @@
     <p>{{post.body}}</p>
     {% if post.author.id == request.user.id %}
     <a href="{% url 'edit-post' post.id %}">edit</a><br>
+    <a href="{% url 'delete-post' post.id %}">delete</a><br>
     {% endif %}
     <!-- 'posted' time different formats depending on context -->
     {% now "w" as day %}

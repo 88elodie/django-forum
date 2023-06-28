@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', views.CreatePost, name='create-posts'),
     path('<int:pk>/', views.SinglePost, name='single-post'),
     path('edit/<int:pk>/', views.EditPost, name='edit-post'),
+    path('delete/<int:pk>/', views.DeletePost, name='delete-post'),
 ]

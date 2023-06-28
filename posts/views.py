@@ -58,3 +58,15 @@ def EditPost(request, pk):
             messages.error(request, 'please correct the following errors')
     return render(request, "post_form.html", context={"form": post_form})
 
+def DeletePost(request, pk):
+    post = get_object_or_404(Post, id=pk)
+
+    if post.author_id != request.user.id:
+        messages.info(request, 'you are not allowed to delete this post')
+        return redirect('posts')
+    else:
+        post.delete()
+        messages.success(request, 'your post has been deleted successfully.')
+        return redirect('posts')
+
+
