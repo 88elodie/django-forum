@@ -24,7 +24,7 @@
     <p class="title">{{post.title}}</p>
     </a>
     <!-- <p class="body"><i>{{post.body|truncatechars:50}}</i></p> -->
-    <p class="details">by <a href="#">{{post.author.username}}</a> @ 
+    <p class="details">by <a href="{% url 'profile' post.author.username %}">{{post.author.username}}</a> @ 
         <!-- 'posted' time different formats depending on context -->
         {% now "w" as day %}
         {% now "W" as week %}

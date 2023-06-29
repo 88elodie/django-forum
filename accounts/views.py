@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from .models import CustomUser
 
 # Create your views here.
 
@@ -12,5 +13,6 @@ class SignUpView(generic.CreateView):
     template_name = "registration/signup.html"
 
 @login_required
-def profile(request):
-    return render(request, 'profile.html')
+def profile(request, user):
+    user_info = get_object_or_404(CustomUser, username=user)
+    return render(request, 'profile.html', context={"user":user_info})
