@@ -5,8 +5,33 @@
 {% block content %}
 
 <div class="profile-container">
+<div class="profile">
     <h2>{{user.username}}'s profile</h2>
-
+    <span>joined 
+        {% now "w" as day %}
+        {% now "W" as week %}
+        {% now "o" as year %}
+        {% if 'minutes' in user.date_joined|timesince %}
+            <span>{{user.date_joined|timesince}} ago</span>
+        {% elif user.date_joined|date:"w" == day %}
+            <span>today, {{user.date_joined|time}}</span>
+        {% elif user.date_joined|date:"w"|add:"1" == day|add:0 %}
+            <span>yesterday, {{user.date_joined|time}}</span>
+        {% elif user.date_joined|date:"W" == week %}
+            <span>{{user.date_joined|date:"l g:i a"}}</span>
+        {% elif user.date_joined|date:"o" == year %}
+            <span>{{user.date_joined|date:"F jS \a\t g:i a"}}</span>
+        {% else %}
+            <span>{{user.date_joined|date:"F jS o \a\t g:i a"}}</span>
+        {% endif %}
+    </span>
 </div>
-
+{% if request.user.id == user.id %}
+<div class="account-info">
+    <h4>my account information</h4>
+    <p>username : {{user.username}}</p>
+    <p>email : {{user.email}}</p>
+</div>
+{% endif %}
+</div>
 {% endblock %}

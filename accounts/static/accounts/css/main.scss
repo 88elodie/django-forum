@@ -1,0 +1,17 @@
+.profile-container {
+    margin: auto;
+    width: fit-content;
+
+    .profile {
+        background-color: $darker_black;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+
+    .account-info {
+        background-color: $darker_black;
+        border-radius: 5px;
+        padding: 20px;
+    }
+}
