@@ -19,11 +19,12 @@
 
     <section class="posts-grid">
     {% for post in posts %}
-    <a href="{% url 'single-post' post.id %}">
     <div>
+    <a href="{% url 'single-post' post.id %}">
     <p class="title">{{post.title}}</p>
+    </a>
     <!-- <p class="body"><i>{{post.body|truncatechars:50}}</i></p> -->
-    <p class="details">by {{post.author.username}} @ 
+    <p class="details">by <a href="#">{{post.author.username}}</a> @ 
         <!-- 'posted' time different formats depending on context -->
         {% now "w" as day %}
         {% now "W" as week %}
@@ -44,7 +45,6 @@
     </p>
     </div>
     <hr>
-    </a>
     {% endfor %}
     </section>
 
