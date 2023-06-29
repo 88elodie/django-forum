@@ -159,3 +159,4 @@ EMAIL_HOST_PASSWORD = 'qbxvutryeeutpmja'
 # Custom user model
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
