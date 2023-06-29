@@ -22,7 +22,7 @@
     <a href="{% url 'single-post' post.id %}">
     <div>
     <p class="title">{{post.title}}</p>
-    <p class="body">{{post.body|truncatechars:50}}</p>
+    <!-- <p class="body"><i>{{post.body|truncatechars:50}}</i></p> -->
     <p class="details">by {{post.author.username}} @ 
         <!-- 'posted' time different formats depending on context -->
         {% now "w" as day %}
@@ -35,7 +35,7 @@
         {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
             <span>yesterday, {{post.created_at|time}}</span>
         {% elif post.created_at|date:"W" == week %}
-            <span>{{post.created_at|date:"l g:i a"}}</span><br>
+            <span>{{post.created_at|date:"l g:i a"}}</span>
         {% elif post.created_at|date:"o" == year %}
             <span>{{post.created_at|date:"F jS \a\t g:i a"}}</span>
         {% else %}
@@ -43,6 +43,7 @@
         {% endif %}
     </p>
     </div>
+    <hr>
     </a>
     {% endfor %}
     </section>
