@@ -4,6 +4,16 @@
 
 {% block content %}
 
+{% if messages %}
+<section class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endif %}
+
 <div class="profile-container">
 <div class="profile">
     <h2>{{user.username}}'s profile</h2>
@@ -24,13 +34,15 @@
         {% else %}
             <span>{{user.date_joined|date:"F jS o \a\t g:i a"}}</span>
         {% endif %}
-    </span>
+    </span><br>
+    <span>{{user.num_posts}} posts</span>
 </div>
 {% if request.user.id == user.id %}
 <div class="account-info">
     <h4>my account information</h4>
     <p>username : {{user.username}}</p>
     <p>email : {{user.email}}</p>
+    <a href="{% url 'edit-account' user.username %}">edit my information</a>
 </div>
 {% endif %}
 </div>

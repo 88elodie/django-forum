@@ -3,6 +3,17 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+<section class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endif %}
+
 {% if user.is_authenticated %}
 <div class="home-container">
   <p>Hi {{ user.username }}!</p>

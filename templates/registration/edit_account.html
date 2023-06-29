@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Account{% endblock %}
+
+{% block content %}
+
+<article class="edit-account-container">
+
+    <h2>edit account information</h2>
+    
+    {% if messages %}
+    <section class="messages">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+    </section>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {% if field.errors %}
+            <ul class="errorlist">
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if 'Password:' in field.label_tag %}
+            {% else %}
+             {{ field.label_tag }} <br> {{ field }}
+            {% endif %}
+        </p>
+        {% endfor %}
+        <button type="submit">save changes</button>
+      </form>
+    
+    </article>
+
+{% endblock %}
