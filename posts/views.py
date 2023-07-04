@@ -24,6 +24,7 @@ def CreatePost(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
+            print(request.POST)
             # add user to the instance ↓
             post_form.instance.author_id = request.user.id
             post_form.save()

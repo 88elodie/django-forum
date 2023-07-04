@@ -18,7 +18,7 @@
 </section>
 {% endif %}
 
-<form method="post">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
 	<p>
@@ -32,6 +32,7 @@
 	 	{{ field.label_tag }} <br> {{ field }}
 	</p>
 	{% endfor %}
+	<input type="file" multiple>
     <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
   </form>
 
