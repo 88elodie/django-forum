@@ -1,4 +1,4 @@
-FilePond.registerPlugin(FilePondPluginImageValidateSize);
+FilePond.registerPlugin(FilePondPluginFileValidateSize);
 FilePond.registerPlugin(FilePondPluginFileValidateType);
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
@@ -55,6 +55,8 @@ FilePond.setOptions({
 const inputElement = document.querySelector('input[type="file"]');
 // Create a FilePond instance
 const pond = FilePond.create(inputElement, {
-    maxFiles: 3
+    maxFiles: 3,
+    maxFileSize: '2MB',
+    acceptedFileTypes: ['image/*']
 });
 
