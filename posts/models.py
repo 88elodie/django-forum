@@ -21,7 +21,7 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    images = models.FileField(upload_to='images/')
+    image = models.FileField()
 
     def __str__(self):
         return self.post.title
