@@ -13,28 +13,48 @@ const csrfToken = getCookie('csrftoken');
 
 FilePond.setOptions({
     server: {
-        url: 'https://localhost:8000/fp',
-        process: '/process/',
-        patch: '/patch/',
-        revert: '/revert/',
-        fetch: '/fetch/?target=',
-        load: '/load/'
+        url: 'http://localhost:8000/fp',
+        process: {
+            url: '/process/',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+          },
+        patch: {
+            url: '/patch/',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+          },
+        revert: {
+            url: '/revert/',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+          },
+        fetch: {
+            url: '/fetch/?target=',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+          },
+        load: {
+            url: '/load/',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+          },
     }
 });
 
 const inputElement = document.querySelector('input[type="file"]');
 // Create a FilePond instance
 const pond = FilePond.create(inputElement, {
-    server: {
-        url: '/fp/process/',
-        process: {
-          method: 'POST', // HTTP method for the file upload
-          headers: {
-            'X-CSRFToken': csrfToken,
-          },
-          withCredentials: true, // If your server requires credentials
-        },
-    },
     maxFiles: 3
 });
 
