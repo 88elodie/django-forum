@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_drf_filepond',
     'compressor',
     'posts',
     'accounts',
@@ -162,4 +163,9 @@ EMAIL_HOST_PASSWORD = 'qbxvutryeeutpmja'
 # Custom user model
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# FilePond
+
+DJANGO_DRF_FILEPOND_UPLOAD_TMP = os.path.join(BASE_DIR, 'filepond-temp-uploads')
+DJANGO_DRF_FILEPOND_FILE_STORE_PATH = os.path.join(BASE_DIR, 'stored_uploads')
 
