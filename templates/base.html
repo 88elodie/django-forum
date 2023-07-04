@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
   <link rel="stylesheet" href="https://use.typekit.net/ecm5gnz.css">
+  <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
   {% load static %}
   {% load compress %}
   {% compress css %}
@@ -27,5 +28,7 @@
     {% block content %}
     {% endblock %}
   </main>
+  <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+  <script src="{% static 'app.js' %}"></script>
 </body>
 </html>
