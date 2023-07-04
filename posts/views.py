@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from .models import Post, PostFile
 from django_drf_filepond.api import store_upload
 
 # Create your views here.
@@ -27,11 +27,21 @@ def CreatePost(request):
             # add user to the instance ↓
             post_form.instance.author_id = request.user.id
             post = post_form.save()
+
+            # upload files in permanent folder and save to database
             id = 1
             for image in request.POST.getlist('filepond'):
-                location = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/image'+str(id))
+                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/image'+str(id))
                 id = id + 1
-                print(location)
+                post_file = PostFile()
+
+                post_file.upload_id = file_info.upload_id
+                post_file.file = file_info.file
+                post_file.post_id = post.id
+                post_file.uploaded_by_id = request.user.id
+
+                post_file.save()
+
             messages.success(request, 'your post was successfully created!')
             # return redirect('seed:view_seed')
             return redirect('posts')

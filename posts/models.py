@@ -19,9 +19,11 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class PostImage(models.Model):
+class PostFile(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.FileField()
+    file = models.FileField()
+    upload_id = models.CharField(max_length=22)
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.post.title
