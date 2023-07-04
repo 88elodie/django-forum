@@ -7,7 +7,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Post
-import sys
+from django_drf_filepond.api import store_upload
 
 # Create your views here.
 
@@ -22,13 +22,16 @@ def SinglePost(request, pk):
 @login_required
 def CreatePost(request):
     if request.method == 'POST':
-        print(request.POST)
         post_form = PostForm(request.POST)
         if post_form.is_valid():
-            print(request.FILES)
             # add user to the instance ↓
             post_form.instance.author_id = request.user.id
-            post_form.save()
+            post = post_form.save()
+            id = 1
+            for image in request.POST.getlist('filepond'):
+                location = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/image'+str(id))
+                id = id + 1
+                print(location)
             messages.success(request, 'your post was successfully created!')
             # return redirect('seed:view_seed')
             return redirect('posts')
