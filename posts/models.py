@@ -19,7 +19,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class PostFile(models.Model):
+class File(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     file = models.FileField()
     upload_id = models.CharField(max_length=22)

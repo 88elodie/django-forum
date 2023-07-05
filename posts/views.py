@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Post, PostFile
-from django_drf_filepond.api import store_upload
+from .models import Post, File
+from django_drf_filepond.api import store_upload, delete_stored_upload
 
 # Create your views here.
 
@@ -33,7 +33,7 @@ def CreatePost(request):
             for image in request.POST.getlist('filepond'):
                 file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/image'+str(id))
                 id = id + 1
-                post_file = PostFile()
+                post_file = File()
 
                 post_file.upload_id = file_info.upload_id
                 post_file.file = file_info.file
@@ -80,6 +80,10 @@ def DeletePost(request, pk):
         messages.info(request, 'you are not allowed to delete this post')
         return redirect('posts')
     else:
+        files = File.objects.filter(post_id=pk)
+        for file in files:
+            delete_stored_upload(file.upload_id, True)
+            file.delete()
         post.delete()
         messages.success(request, 'your post has been deleted successfully.')
         return redirect('posts')
