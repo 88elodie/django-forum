@@ -2,6 +2,8 @@ FilePond.registerPlugin(FilePondPluginFileValidateSize);
 FilePond.registerPlugin(FilePondPluginFileValidateType);
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
+imageUrls.map(url => (console.log(url.fields)))
+
 const getCookie = (name) => {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
@@ -57,6 +59,6 @@ const inputElement = document.querySelector('input[type="file"]');
 const pond = FilePond.create(inputElement, {
     maxFiles: 3,
     maxFileSize: '2MB',
-    acceptedFileTypes: ['image/*']
+    acceptedFileTypes: ['image/*'],
+    files: imageUrls.length > 0 ? imageUrls.map(url => ({ source: '?id='+url.fields.upload_id, options: { type: 'local' } })) : []
 });
-

@@ -6,6 +6,8 @@ from .models import Post, File
 from django_drf_filepond.api import store_upload, delete_stored_upload
 import os
 from django_drf_filepond.models import TemporaryUpload
+from django.core import serializers
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -32,7 +34,7 @@ def CreatePost(request):
                 tu = TemporaryUpload.objects.get(upload_id=image)
 
                 # upload to permanent storage
-                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+tu.upload_name)
+                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/'+tu.upload_name)
                 # create File object and assign data
                 post_file = File()
 
@@ -55,13 +57,14 @@ def CreatePost(request):
 def EditPost(request, pk):
     post = get_object_or_404(Post, id=pk)
     files = File.objects.filter(post_id=pk)
-    print(files)
+    filesJson = serializers.serialize('json', files)
+
     if post.author_id != request.user.id:
         messages.info(request, 'you are not allowed to edit this post')
         return redirect('posts')
 
     if request.method == 'GET':
-        context = {'form': PostForm(instance=post), 'id': pk, 'files': files}
+        context = {'form': PostForm(instance=post), 'id': pk, 'files': files, 'filesJson': filesJson}
         return render(request, 'post_form.html', context)
     elif request.method == 'POST':
         post_form = PostForm(request.POST, instance=post)
