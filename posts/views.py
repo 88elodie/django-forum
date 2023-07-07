@@ -1,13 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404, reverse
-from django.http import HttpResponse
 from .forms import PostForm
-from django.urls import reverse_lazy
-from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Post, File
 from django_drf_filepond.api import store_upload, delete_stored_upload
+import os
+from django_drf_filepond.models import TemporaryUpload
 
 # Create your views here.
 
@@ -29,17 +27,20 @@ def CreatePost(request):
             post = post_form.save()
 
             # upload files in permanent folder and save to database
-            id = 1
             for image in request.POST.getlist('filepond'):
-                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/image'+str(id))
-                id = id + 1
+                #get upload name
+                tu = TemporaryUpload.objects.get(upload_id=image)
+
+                # upload to permanent storage
+                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+tu.upload_name)
+                # create File object and assign data
                 post_file = File()
 
                 post_file.upload_id = file_info.upload_id
                 post_file.file = file_info.file
                 post_file.post_id = post.id
                 post_file.uploaded_by_id = request.user.id
-
+                # save file object to DB
                 post_file.save()
 
             messages.success(request, 'your post was successfully created!')
@@ -53,13 +54,14 @@ def CreatePost(request):
 
 def EditPost(request, pk):
     post = get_object_or_404(Post, id=pk)
-
+    files = File.objects.filter(post_id=pk)
+    print(files)
     if post.author_id != request.user.id:
         messages.info(request, 'you are not allowed to edit this post')
         return redirect('posts')
 
     if request.method == 'GET':
-        context = {'form': PostForm(instance=post), 'id': pk}
+        context = {'form': PostForm(instance=post), 'id': pk, 'files': files}
         return render(request, 'post_form.html', context)
     elif request.method == 'POST':
         post_form = PostForm(request.POST, instance=post)
@@ -71,7 +73,7 @@ def EditPost(request, pk):
             return redirect(url)
         else:
             messages.error(request, 'please correct the following errors')
-    return render(request, "post_form.html", context={"form": post_form})
+    return render(request, "post_form.html", context={"form": post_form, "files": files})
 
 def DeletePost(request, pk):
     post = get_object_or_404(Post, id=pk)

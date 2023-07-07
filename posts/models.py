@@ -21,9 +21,9 @@ class Post(models.Model):
 
 class File(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    file = models.FileField()
+    file = models.CharField(max_length=100)
     upload_id = models.CharField(max_length=22)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.post.title
+        return self.file
