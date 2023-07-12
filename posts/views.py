@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render, get_object_or_404, reverse
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from .models import Post, File
+from accounts.models import Profile
 from django_drf_filepond.api import store_upload, delete_stored_upload
 import os
 from django_drf_filepond.models import TemporaryUpload
@@ -18,8 +19,9 @@ def index(request):
 def SinglePost(request, pk):
     post = get_object_or_404(Post, id=pk)
     files = File.objects.filter(post_id=pk)
+    author_profile = get_object_or_404(Profile, user_id=post.author_id)
 
-    return render(request, 'single_post.html',context={'post': post, 'images': files})
+    return render(request, 'single_post.html',context={'post': post, 'images': files, 'author_profile': author_profile})
 
 @login_required
 def CreatePost(request):

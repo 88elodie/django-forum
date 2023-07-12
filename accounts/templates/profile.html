@@ -16,7 +16,9 @@
 
 <div class="profile-container">
 <div class="profile">
+    {% if profile.profile_picture %}
     <img src="{{MEDIA_URL}}{{profile.profile_picture}}" alt="">
+    {% endif %}
     <h2>{{user.username}}'s profile</h2>
     <span class="joined">joined 
         {% now "w" as day %}
@@ -42,9 +44,6 @@
     </span><br>
     <span class="post-count">{{user.num_posts}} posts</span><br>
 
-    {% if profile.profile_picture %}
-
-    {% endif %}
     {% if profile.status %}
     <p class="profile-info">
         <span class="profile-info-label">status: </span>

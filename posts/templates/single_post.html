@@ -6,7 +6,13 @@
 
 <section class="single-post-container">
     <h2>{{post.title}}</h2>
-    <span class="author">by {{post.author.username}}</span>
+    <span class="author">by 
+        {% if author_profile.profile_picture %}
+        <span class="mini-pfp">
+        <img src="{{MEDIA_URL}}{{author_profile.profile_picture}}" alt="">
+        </span>
+        {% endif %}
+        <a href="{% url 'profile' post.author.username %}">{{post.author.username}}</a></span>
    
     <p class="body">{{post.body|linebreaksbr}}</p>
 
