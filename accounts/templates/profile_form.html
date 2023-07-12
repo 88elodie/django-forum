@@ -4,4 +4,42 @@
 
 {% block content %}
 
+<section class="profile-form-container">
+
+{% if messages %}
+<section class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if profile.profile_picture %}
+	{% else %}
+    <label for="filepond">profile picture:</label>
+	<input type="file" name="filepond" id="filepond">
+	{% endif %}
+
+    {% for field in form %}
+	<p>
+		{% if field.errors %}
+		<ul class="errorlist">
+			{% for error in field.errors %}
+			<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	 	{{ field.label_tag }} <br> {{ field }}
+	</p>
+	{% endfor %}
+    <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
+</form>
+
+</section>
+
 {% endblock %}

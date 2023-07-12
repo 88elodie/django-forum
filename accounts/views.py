@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Profile
 from posts.models import Post
 from django.contrib import messages
+from django_drf_filepond.api import store_upload, delete_stored_upload
+from django_drf_filepond.models import TemporaryUpload
 
 # Create your views here.
 
@@ -51,5 +53,24 @@ def EditProfile(request, user):
         return redirect('home')
     
     if request.method == 'GET':
-        context = {'id': user_info.id}
+        context = {'form': ProfileForm(instance=profile_info), 'id': user_info.id, 'profile': profile_info}
         return render(request, 'profile_form.html', context)
+    elif request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=profile_info)
+        if profile_form.is_valid():
+            for image in request.POST.getlist('filepond'):
+                if image:
+                    #get upload name
+                    tu = TemporaryUpload.objects.get(upload_id=image)
+
+                    # upload to permanent storage
+                    file_info = store_upload(image, str(request.user.id)+'/profile/'+tu.upload_name)
+                    profile_form.instance.profile_picture = file_info.file
+            profile_form.instance.user_id = user_info.id
+            profile_form.save()
+            messages.success(request, 'your profile information has been updated successfully.')
+            url = reverse('profile', args=[user])
+            return redirect(url)
+        else:
+            messages.error(request, 'please correct the following errors')
+        return render(request, "profile_form.html", context={"form": profile_form, 'profile': profile_info})
