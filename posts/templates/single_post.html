@@ -8,7 +8,7 @@
     <h2>{{post.title}}</h2>
     <span class="author">by {{post.author.username}}</span>
    
-    <p class="body">{{post.body}}</p>
+    <p class="body">{{post.body|linebreaksbr}}</p>
 
     <div class="post-images">
     {% for image in images %}
@@ -67,6 +67,5 @@
     <a class="delete-button button" href="{% url 'delete-post' post.id %}">delete</a>
     {% endif %}
 </section>
-
 
 {% endblock %}

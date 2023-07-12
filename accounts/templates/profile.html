@@ -39,7 +39,11 @@
             <span>{{user.date_joined|date:"F jS o \a\t g:i a"}}</span><br>
         {% endif %}
     </span><br>
-    <span>{{user.num_posts}} posts</span>
+    <span>{{user.num_posts}} posts</span><br>
+
+    {% if request.user.id == user.id %}
+        <a href="{% url 'edit-profile' user.username %}">edit my profile</a>
+    {% endif %}
 </div>
 {% if request.user.id == user.id %}
 <div class="account-info">

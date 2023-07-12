@@ -46,6 +46,27 @@
  let imageUrls = JSON.parse("{{filesJson|escapejs}}")
 </script>
 {% endif %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        var max = 5000;
+        $('textarea').keypress(function(e) {
+            if (e.which < 0x20) {
+                // e.which < 0x20, then it's not a printable character
+                // e.which === 0 - Not a character
+                return;     // Do nothing
+            }
+            if (this.value.length == max) {
+                e.preventDefault();
+            } else if (this.value.length > max) {
+                // Maximum exceeded
+                this.value = this.value.substring(0, max);
+            }
+        });
+    }); //end if ready(fn)
+
+
+</script>
   
   
 {% endblock %}

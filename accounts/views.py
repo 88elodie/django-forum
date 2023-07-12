@@ -3,7 +3,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser
+from .models import CustomUser, Profile
 from posts.models import Post
 from django.contrib import messages
 
@@ -41,3 +41,15 @@ def EditAccount(request, user):
         else:
             messages.error(request, 'please correct the following errors')
     return render(request, "registration/edit_account.html", context={"form": account_form})
+
+def EditProfile(request, user):
+    user_info = get_object_or_404(CustomUser, username=user)
+    profile_info = get_object_or_404(Profile, user_id=user_info.id)
+
+    if user_info.id != request.user.id:
+        messages.info(request, 'you are not allowed to edit this account\'s information')
+        return redirect('home')
+    
+    if request.method == 'GET':
+        context = {'id': user_info.id}
+        return render(request, 'profile_form.html', context)

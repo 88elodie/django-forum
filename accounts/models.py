@@ -15,8 +15,8 @@ class CustomUser(AbstractUser):
     
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, validators = [
-            MinLengthValidator(1, 'your title needs at least 1 character')
-        ])
+    status = models.CharField(max_length=50, blank=True)
+    about = models.CharField(max_length=200, blank=True)
+    profile_picture = models.CharField(max_length=2048, blank=True)
     
     

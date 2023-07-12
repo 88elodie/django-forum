@@ -30,22 +30,24 @@ def CreatePost(request):
             post_form.instance.author_id = request.user.id
             post = post_form.save()
 
+            
             # upload files in permanent folder and save to database
             for image in request.POST.getlist('filepond'):
-                #get upload name
-                tu = TemporaryUpload.objects.get(upload_id=image)
+                if image:
+                    #get upload name
+                    tu = TemporaryUpload.objects.get(upload_id=image)
 
-                # upload to permanent storage
-                file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/'+tu.upload_name)
-                # create File object and assign data
-                post_file = File()
+                    # upload to permanent storage
+                    file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/'+tu.upload_name)
+                    # create File object and assign data
+                    post_file = File()
 
-                post_file.upload_id = file_info.upload_id
-                post_file.file = file_info.file
-                post_file.post_id = post.id
-                post_file.uploaded_by_id = request.user.id
-                # save file object to DB
-                post_file.save()
+                    post_file.upload_id = file_info.upload_id
+                    post_file.file = file_info.file
+                    post_file.post_id = post.id
+                    post_file.uploaded_by_id = request.user.id
+                    # save file object to DB
+                    post_file.save()
 
             messages.success(request, 'your post was successfully created!')
             # return redirect('seed:view_seed')
