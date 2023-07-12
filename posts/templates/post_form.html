@@ -32,15 +32,20 @@
 	 	{{ field.label_tag }} <br> {{ field }}
 	</p>
 	{% endfor %}
+	{% if id %}
+	{% else %}
 	<input type="file" name="filepond" multiple>
+	{% endif %}
     <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
   </form>
 
 </article>
 
+{% if id %}
 <script>
  let imageUrls = JSON.parse("{{filesJson|escapejs}}")
 </script>
+{% endif %}
   
   
 {% endblock %}

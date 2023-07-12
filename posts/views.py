@@ -17,7 +17,9 @@ def index(request):
 
 def SinglePost(request, pk):
     post = get_object_or_404(Post, id=pk)
-    return render(request, 'single_post.html',context={'post': post})
+    files = File.objects.filter(post_id=pk)
+
+    return render(request, 'single_post.html',context={'post': post, 'images': files})
 
 @login_required
 def CreatePost(request):

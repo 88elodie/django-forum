@@ -1,3 +1,4 @@
+//posts index
 .posts-container {
 
     .header{
@@ -75,6 +76,7 @@
 
 }
 
+// create post + edit post
 .post-form-container {
     margin: auto;
     width: fit-content;
@@ -82,4 +84,55 @@
     h2 {
         margin-bottom: 30px;
     }
+}
+
+// single post
+.single-post-container {
+    margin: auto;
+    width: 75%;
+    padding: 30px;
+    background-color: $darker_black;
+    border-radius: 5px;
+
+    .author {
+        color: $light-grey;
+    }
+
+    .body {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        min-height: 100px;
+    }
+
+    .button {
+        display: inline-block;
+        margin-bottom: 0 !important;
+        margin-top: 20px;
+    }
+
+    .delete-button {
+        background-color: $bad-color !important;
+    }
+
+    .post-content-divider {
+        border: none;
+        height: 0.5px;
+        background-color: $light-grey;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .post-images {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 10px;
+        overflow: scroll;
+        margin: 10px;
+
+        img {
+            height: 200px;
+            border-radius: 5px;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ $darker_black : #171717;
 $off-white : beige;
 $light-grey: rgb(168, 168, 168);
 $accent-color : #9890bc;
+$bad-color: rgb(197, 82, 82);
 $main_font : 'fig-serif';
 $menu_font : 'bitcount-mono-double-circle';
 
@@ -90,7 +91,7 @@ form {
   }
 }
 
-button {
+button, .button {
   font-family: $main_font;
   padding: 10px;
   margin-top: 10px;

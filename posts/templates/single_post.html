@@ -4,46 +4,67 @@
 
 {% block content %}
 
-<section>
+<section class="single-post-container">
     <h2>{{post.title}}</h2>
-    <span>by {{post.author.username}}</span>
-    <p>{{post.body}}</p>
-    {% if post.author.id == request.user.id %}
-    <a href="{% url 'edit-post' post.id %}">edit</a><br>
-    <a href="{% url 'delete-post' post.id %}">delete</a><br>
-    {% endif %}
+    <span class="author">by {{post.author.username}}</span>
+   
+    <p class="body">{{post.body}}</p>
+
+    <div class="post-images">
+    {% for image in images %}
+        <div class="image">
+            <a href="{{MEDIA_URL}}{{image.file}}"" target="_blank">
+            <img src="{{MEDIA_URL}}{{image.file}}" alt="">
+            </a>
+        </div>
+    {% endfor %}
+    </div>
     <!-- 'posted' time different formats depending on context -->
     {% now "w" as day %}
     {% now "W" as week %}
     {% now "o" as year %}
-    {% if 'minutes' in post.created_at|timesince %}
-        <span>posted {{post.created_at|timesince}} ago</span><br>
-    {% elif post.created_at|date:"w" == day %}
-        <span>posted today, {{post.created_at|time}}</span><br>
-    {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
-        <span>posted yesterday, {{post.created_at|time}}</span><br>
-    {% elif post.created_at|date:"W" == week %}
-        <span>posted {{post.created_at|date:"l g:i a"}}</span><br>
-    {% elif post.created_at|date:"o" == year %}
-        <span>posted {{post.created_at|date:"F jS \a\t g:i a"}}</span><br>
+    
+    {% if post.created_at|date:"o" == year %}
+        {% if post.created_at|date:"W" == week %}
+            {% if 'minutes' in post.created_at|timesince %}
+                <span>posted {{post.created_at|timesince}} ago</span><br>
+            {% elif post.created_at|date:"w" == day %}
+                <span>posted today, {{post.created_at|time}}</span><br>
+            {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
+                <span>posted yesterday, {{post.created_at|time}}</span><br>
+            {% else %}
+            <span>posted {{post.created_at|date:"l g:i a"}}</span><br>
+            {% endif %}
+        {% else %}
+            <span>posted {{post.created_at|date:"F jS \a\t g:i a"}}</span><br>
+        {% endif %}
     {% else %}
-        <span>posted {{post.created_at|date:"F jS o \a\t g:i a"}}</span>
+        <span>posted {{post.created_at|date:"F jS o \a\t g:i a"}}</span><br>
+    {% endif %}
+    
+    {% if post.updated_at is not post.created_at %}
+        {% if post.updated_at|date:"o" == year %}
+            {% if post.updated_at|date:"W" == week %}
+                {% if 'minutes' in post.updated_at|timesince %}
+                    <span>updated {{post.updated_at|timesince}} ago</span><br>
+                {% elif post.updated_at|date:"w" == day %}
+                    <span>updated today, {{post.updated_at|time}}</span><br>
+                {% elif post.updated_at|date:"w"|add:"1" == day|add:0 %}
+                    <span>updated yesterday, {{post.updated_at|time}}</span><br>
+                {% else %}
+                <span>updated {{post.updated_at|date:"l g:i a"}}</span><br>
+                {% endif %}
+            {% else %}
+                <span>updated {{post.updated_at|date:"F jS \a\t g:i a"}}</span><br>
+            {% endif %}
+        {% else %}
+            <span>updated {{post.updated_at|date:"F jS o \a\t g:i a"}}</span><br>
+        {% endif %}
     {% endif %}
 
-    {% if post.updated_at is post.created_at %}
-        {% if 'minutes' in post.updated_at|timesince %}
-            <span>updated {{post.updated_at|timesince}} ago</span><br>
-        {% elif post.updated_at|date:"w" == day %}
-            <span>updated today, {{post.updated_at|time}}</span><br>
-        {% elif post.updated_at|date:"w"|add:"1" == day|add:0 %}
-            <span>updated yesterday, {{post.updated_at|time}}</span><br>
-        {% elif post.updated_at|date:"W" == week %}
-            <span>updated {{post.updated_at|date:"l g:i a"}}</span><br>
-        {% elif post.updated_at|date:"o" == year %}
-            <span>updated {{post.updated_at|date:"F jS \a\t g:i a"}}</span><br>
-        {% else %}
-            <span>updated {{post.updated_at|date:"F jS o \a\t g:i a"}}</span>
-        {% endif %}
+    {% if post.author.id == request.user.id %}
+    <a class="edit-button button" href="{% url 'edit-post' post.id %}">edit</a>
+    <a class="delete-button button" href="{% url 'delete-post' post.id %}">delete</a>
     {% endif %}
 </section>
 

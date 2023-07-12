@@ -36,18 +36,22 @@
         {% now "w" as day %}
         {% now "W" as week %}
         {% now "o" as year %}
-        {% if 'minutes' in post.created_at|timesince %}
-            <span>{{post.created_at|timesince}} ago</span>
-        {% elif post.created_at|date:"w" == day %}
-            <span>today, {{post.created_at|time}}</span>
-        {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
-            <span>yesterday, {{post.created_at|time}}</span>
-        {% elif post.created_at|date:"W" == week %}
-            <span>{{post.created_at|date:"l g:i a"}}</span>
-        {% elif post.created_at|date:"o" == year %}
-            <span>{{post.created_at|date:"F jS \a\t g:i a"}}</span>
+        {% if post.created_at|date:"o" == year %}
+            {% if post.created_at|date:"W" == week %}
+                {% if 'minutes' in post.created_at|timesince %}
+                    <span>posted {{post.created_at|timesince}} ago</span><br>
+                {% elif post.created_at|date:"w" == day %}
+                    <span>posted today, {{post.created_at|time}}</span><br>
+                {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
+                    <span>posted yesterday, {{post.created_at|time}}</span><br>
+                {% else %}
+                <span>posted {{post.created_at|date:"l g:i a"}}</span><br>
+                {% endif %}
+            {% else %}
+                <span>posted {{post.created_at|date:"F jS \a\t g:i a"}}</span><br>
+            {% endif %}
         {% else %}
-            <span>{{post.created_at|date:"F jS o \a\t g:i a"}}</span>
+            <span>posted {{post.created_at|date:"F jS o \a\t g:i a"}}</span><br>
         {% endif %}
     </p>
     </div>
