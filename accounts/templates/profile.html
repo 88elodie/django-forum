@@ -16,30 +16,47 @@
 
 <div class="profile-container">
 <div class="profile">
+    <img src="{{MEDIA_URL}}{{profile.profile_picture}}" alt="">
     <h2>{{user.username}}'s profile</h2>
-    <span>joined 
+    <span class="joined">joined 
         {% now "w" as day %}
         {% now "W" as week %}
         {% now "o" as year %}
         {% if user.date_joined|date:"o" == year %}
             {% if user.date_joined|date:"W" == week %}
                 {% if 'minutes' in user.date_joined|timesince %}
-                    <span>{{user.date_joined|timesince}} ago</span><br>
+                    <span>{{user.date_joined|timesince}} ago</span>
                 {% elif user.date_joined|date:"w" == day %}
-                    <span>today, {{user.date_joined|time}}</span><br>
+                    <span>today, {{user.date_joined|time}}</span>
                 {% elif user.date_joined|date:"w"|add:"1" == day|add:0 %}
-                    <span>yesterday, {{user.date_joined|time}}</span><br>
+                    <span>yesterday, {{user.date_joined|time}}</span>
                 {% else %}
-                <span>{{user.date_joined|date:"l g:i a"}}</span><br>
+                <span>{{user.date_joined|date:"l g:i a"}}</span>
                 {% endif %}
             {% else %}
-                <span>{{user.date_joined|date:"F jS \a\t g:i a"}}</span><br>
+                <span>{{user.date_joined|date:"F jS \a\t g:i a"}}</span>
             {% endif %}
         {% else %}
-            <span>{{user.date_joined|date:"F jS o \a\t g:i a"}}</span><br>
+            <span>{{user.date_joined|date:"F jS o \a\t g:i a"}}</span>
         {% endif %}
     </span><br>
-    <span>{{user.num_posts}} posts</span><br>
+    <span class="post-count">{{user.num_posts}} posts</span><br>
+
+    {% if profile.profile_picture %}
+
+    {% endif %}
+    {% if profile.status %}
+    <p class="profile-info">
+        <span class="profile-info-label">status: </span>
+        {{profile.status}}
+    </p>
+    {% endif %}
+    {% if profile.about %}
+    <p class="profile-info">
+        <span class="profile-info-label">about:<br></span>
+        {{profile.about}}
+    </p>
+    {% endif %}
 
     {% if request.user.id == user.id %}
         <a href="{% url 'edit-profile' user.username %}">edit my profile</a>

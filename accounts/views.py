@@ -21,7 +21,8 @@ def profile(request, user):
     user_info = get_object_or_404(CustomUser, username=user)
     user_posts = Post.objects.filter(author_id=user_info.id).count()
     user_info.num_posts = user_posts
-    return render(request, 'profile.html', context={"user":user_info})
+    profile_info = get_object_or_404(Profile, user_id=user_info.id)
+    return render(request, 'profile.html', context={"user":user_info, "profile": profile_info})
 
 def EditAccount(request, user):
     user_info = get_object_or_404(CustomUser, username=user)
@@ -74,3 +75,4 @@ def EditProfile(request, user):
         else:
             messages.error(request, 'please correct the following errors')
         return render(request, "profile_form.html", context={"form": profile_form, 'profile': profile_info})
+    

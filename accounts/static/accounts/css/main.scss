@@ -7,12 +7,33 @@
         border-radius: 5px;
         padding: 20px;
         margin-bottom: 10px;
+
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    .joined, .post-count{
+        color: $light-grey;
     }
 
     .account-info {
         background-color: $darker_black;
         border-radius: 5px;
         padding: 20px;
+    }
+
+    .profile-info{
+        margin-top: 10px;
+
+        .profile-info-label{
+            color: $accent-color;
+        }
+    }
+
+    a{
+        margin-top: 15px;
+        display: block;
     }
 
 }
