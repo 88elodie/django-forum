@@ -41,8 +41,8 @@
     {% else %}
         <span>posted {{post.created_at|date:"F jS o \a\t g:i a"}}</span><br>
     {% endif %}
-    
-    {% if post.updated_at is not post.created_at %}
+
+    {% if post.updated_at|date:"F jS o g:i a" != post.created_at|date:"F jS o g:i a" %}
         {% if post.updated_at|date:"o" == year %}
             {% if post.updated_at|date:"W" == week %}
                 {% if 'minutes' in post.updated_at|timesince %}
