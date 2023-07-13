@@ -1,6 +1,8 @@
 .profile-container {
     margin: auto;
     width: fit-content;
+    max-width: 300px;
+    word-wrap: break-word;
 
     .profile {
         background-color: $darker_black;
