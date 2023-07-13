@@ -104,6 +104,10 @@
     background-color: $darker_black;
     border-radius: 5px;
 
+    h2 {
+        word-wrap: break-word;
+    }
+
     .author {
         color: $light-grey;
 
@@ -150,6 +154,7 @@
         margin-bottom: 5px;
     }
 
+    //add mobile responsiveness where images appear in column istead of horizontal scroll (650px screen)
     .post-images {
         display: flex;
         flex-flow: row nowrap;

@@ -38,6 +38,7 @@ a:hover {
 // menu
 nav { 
   //mobile menu
+  // source https://codepen.io/danhearn/pen/XprGrJ
   input[type=checkbox] {
     display: none;
   }
@@ -45,7 +46,7 @@ nav {
   @media (max-width: 650px) {
     #overlay-button {
       position: fixed;
-      right: 3em;
+      right: 2em;
       top: 15px;
       padding: 26px 11px;
       z-index: 5;
@@ -142,8 +143,18 @@ nav {
     }
   }
   // end mobile menu
-  div {
-    float: right;
+  ul {
+    @media (min-width: 650px) {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    }
+    
+    li {
+      list-style-type: none;
+      display: inline-block;
+    }
+
     a {
       margin-left: 0.5em;
     }
