@@ -32,6 +32,7 @@ a {
 
 a:hover {
   color: white;
+  cursor: pointer;
 }
 
 // menu
@@ -98,10 +99,10 @@ button, .button {
   font-family: $main_font;
   padding: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
   background-color: $accent-color;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 //messages
@@ -140,6 +141,7 @@ p.info {
 @import 'home.scss';
 @import 'signup.scss';
 @import 'login.scss';
+@import 'account.scss';
 @import 'password.scss';
 @import 'posts/css/main.scss';
 @import 'accounts/css/main.scss';

@@ -1,7 +1,9 @@
 .login-container {
     margin: auto;
     width: fit-content;
-    padding: 20px;
+    padding: 30px;
+    background-color: $darker_black;
+    border-radius: 5px;
 
     .content {
         display: flex;
@@ -17,9 +19,10 @@
 
         .small-card {
             padding: 20px;
-            background-color: $darker_black;
+            background-color: $black;
             margin-top: 10px;
             border-radius: 5px;
         }
+
     }
 }
