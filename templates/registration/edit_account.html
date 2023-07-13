@@ -31,7 +31,7 @@
             {% endif %}
             {% if 'Password:' in field.label_tag %}
             {% else %}
-             {{ field.label_tag }} <br> {{ field }}
+             {{ field.label_tag|lower }} <br> {{ field }}
             {% endif %}
         </p>
         {% endfor %}

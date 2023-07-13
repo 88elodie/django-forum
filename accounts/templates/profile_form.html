@@ -40,7 +40,7 @@
 			{% endfor %}
 		</ul>
 		{% endif %}
-	 	{{ field.label_tag }} <br> {{ field }}
+	 	{{ field.label_tag|lower }} <br> {{ field }}
 	</p>
 	{% endfor %}
     <button type="submit">save profile</button>
