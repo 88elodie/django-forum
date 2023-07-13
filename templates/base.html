@@ -19,14 +19,18 @@
 <body>
     <nav>
         <a href="{% url 'home' %}" class="logo">✦✦✦</a>
-        <div>
-            <a href="{% url 'posts' %}">posts</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'profile' request.user %}">profile</a>
-            <a href="{% url 'logout' %}">log out</a>
-            {% else %}
-            <a href="{% url 'login' %}">log in</a><br>
-            {% endif %}
+        <input type="checkbox" id="overlay-input" />
+        <label for="overlay-input" id="overlay-button"><span></span></label>
+        <div id="overlay">
+            <ul>
+                <li><a href="{% url 'posts' %}">posts</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' request.user %}">profile</a></li>
+                <li><a href="{% url 'logout' %}">log out</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">log in</a></li><br>
+                {% endif %}
+            </ul>
         </div>
     </nav>
   <main>

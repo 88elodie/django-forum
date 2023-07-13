@@ -37,6 +37,111 @@ a:hover {
 
 // menu
 nav { 
+  //mobile menu
+  input[type=checkbox] {
+    display: none;
+  }
+
+  @media (max-width: 650px) {
+    #overlay-button {
+      position: fixed;
+      right: 3em;
+      top: 15px;
+      padding: 26px 11px;
+      z-index: 5;
+      cursor: pointer;
+      user-select: none;
+      span {
+          height: 4px;
+          width: 35px;
+          border-radius: 2px;
+          background-color: $off-white;
+          position: relative;
+          display: block;
+          transition: all .2s ease-in-out;
+          &:before {
+            top: -10px;
+            visibility: visible;
+          }
+          &:after {
+            top: 10px;
+          }
+          &:before, &:after {
+              height: 4px;
+              width: 35px;
+              border-radius: 2px;
+              background-color: $off-white;
+              position: absolute;
+              content: "";
+              transition: all .2s ease-in-out;
+          }
+        }
+        &:hover span, &:hover span:before, &:hover span:after {
+          background: white;
+        }
+    }
+    
+    input[type=checkbox] {
+      display: none;
+      
+      &:checked ~ #overlay {
+        visibility: visible;
+      }
+      
+      &:checked ~ #overlay-button {
+        &:hover span, span{
+          background: transparent;
+        }
+        span {
+          &:before {
+            transform: rotate(45deg) translate(7px, 7px);
+            opacity: 1;
+          }
+          &:after {
+            transform: rotate(-45deg) translate(7px, -7px);
+          }
+        }
+      }
+    }
+    
+    #overlay {
+      height: 100vh;
+      width: 100vw;
+      background: $black;
+      z-index: 2;
+      visibility: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      &.active {
+        visibility: visible;
+      }
+      ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        height: 100vh;
+        padding-left: 0;
+        list-style-type: none;
+        li {
+          padding: 1em;
+
+          a {
+            color: $off-white;
+            text-decoration: none;
+            font-size: 2.5em;
+            &:hover {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  // end mobile menu
   div {
     float: right;
     a {

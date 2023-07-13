@@ -29,7 +29,7 @@
     <div>
     <a href="{% url 'single-post' post.id %}">
     <p class="title">{{post.title}}</p>
-    </a>
+    </a><br class="responsive-linebreak">
     <!-- <p class="body"><i>{{post.body|truncatechars:50}}</i></p> -->
     <p class="details">by <a href="{% url 'profile' post.author.username %}">{{post.author.username}}</a> @ 
         <!-- 'posted' time different formats depending on context -->

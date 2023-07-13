@@ -58,6 +58,9 @@
             }
 
             &.details {
+                @media (max-width: 950px) {
+                    float: none;
+                }
                 color: $light-grey;
                 float: right;
 
@@ -70,6 +73,13 @@
                     text-decoration: none;
                 }
             }
+        }
+
+        .responsive-linebreak{
+            @media (max-width: 950px) {
+                display: block;
+            }
+            display: none;
         }
 
     }
