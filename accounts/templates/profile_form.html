@@ -6,10 +6,12 @@
 
 <section class="profile-form-container">
 
+<h2>edit profile info</h2>
+
 {% if messages %}
 <section class="messages">
     {% for message in messages %}
-    {% if message.tags == 'error' %}
+    {% if message.tags == 'error' or message.tags == 'success' %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endif %}
     {% endfor %}
@@ -20,6 +22,10 @@
     {% csrf_token %}
 
     {% if profile.profile_picture %}
+    <a class="change-pfp" href="{% url 'delete-pfp' profile.user_id %}">
+        <span>change my profile picture</span><br>
+        (this will delete your current one)
+    </a>
 	{% else %}
     <label for="filepond">profile picture:</label>
 	<input type="file" name="filepond" id="filepond">
@@ -37,7 +43,7 @@
 	 	{{ field.label_tag }} <br> {{ field }}
 	</p>
 	{% endfor %}
-    <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
+    <button type="submit">save profile</button>
 </form>
 
 </section>

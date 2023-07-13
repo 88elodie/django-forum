@@ -51,11 +51,11 @@ def CreatePost(request):
                     # save file object to DB
                     post_file.save()
 
-            messages.success(request, 'your post was successfully created!')
+            messages.success(request, 'your post was successfully created !')
             # return redirect('seed:view_seed')
             return redirect('posts')
         else:
-            messages.error(request, 'please correct the error below.')
+            messages.error(request, 'please correct the error below')
     else:
         post_form = PostForm()
     return render(request, "post_form.html", context={"form": post_form})
@@ -76,7 +76,7 @@ def EditPost(request, pk):
         post_form = PostForm(request.POST, instance=post)
         if post_form.is_valid():
             post_form.save()
-            messages.success(request, 'your post has been updated successfully.')
+            messages.success(request, 'your post was successfully updated !')
             post_id = post.id
             url = reverse('single-post', args=[post_id])
             return redirect(url)

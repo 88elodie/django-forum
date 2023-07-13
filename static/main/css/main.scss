@@ -5,6 +5,7 @@ $off-white : beige;
 $light-grey: rgb(168, 168, 168);
 $accent-color : #9890bc;
 $bad-color: rgb(197, 82, 82);
+$good-color: rgb(105, 167, 105);
 $main_font : 'fig-serif';
 $menu_font : 'bitcount-mono-double-circle';
 
@@ -92,6 +93,7 @@ form {
   }
 }
 
+//button
 button, .button {
   font-family: $main_font;
   padding: 10px;
@@ -100,6 +102,38 @@ button, .button {
   background-color: $accent-color;
   border: none;
   border-radius: 3px;
+}
+
+//messages
+
+p.success {
+  width: fit-content;
+  display: block;
+  padding:5px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: $good-color;
+  color: black;
+}
+
+p.error {
+  width: fit-content;
+  display: block;
+  padding:5px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: $bad-color;
+  color: black;
+}
+
+p.info {
+  width: fit-content;
+  display: block;
+  padding:5px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: $light-grey;
+  color: black;
 }
 
 // imports

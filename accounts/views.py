@@ -7,7 +7,7 @@ from .models import CustomUser, Profile
 from posts.models import Post
 from django.contrib import messages
 from django_drf_filepond.api import store_upload, delete_stored_upload
-from django_drf_filepond.models import TemporaryUpload
+from django_drf_filepond.models import TemporaryUpload, StoredUpload
 
 # Create your views here.
 
@@ -38,7 +38,7 @@ def EditAccount(request, user):
         account_form = CustomUserChangeForm(request.POST, instance=user_info)
         if account_form.is_valid():
             account_form.save()
-            messages.success(request, 'your account information has been updated successfully.')
+            messages.success(request, 'your account information was successfully updated !')
             url = reverse('profile', args=[account_form.instance.username])
             return redirect(url)
         else:
@@ -69,10 +69,28 @@ def EditProfile(request, user):
                     profile_form.instance.profile_picture = file_info.file
             profile_form.instance.user_id = user_info.id
             profile_form.save()
-            messages.success(request, 'your profile information has been updated successfully.')
+            messages.success(request, 'your profile information was successfully updated !')
             url = reverse('profile', args=[user])
             return redirect(url)
         else:
             messages.error(request, 'please correct the following errors')
         return render(request, "profile_form.html", context={"form": profile_form, 'profile': profile_info})
+    
+def DeletePfp(request, id):
+    profile_info = get_object_or_404(Profile, user_id=id)
+    su = StoredUpload.objects.get(file=profile_info.profile_picture)
+    user_info = CustomUser.objects.get(id=id)
+
+    if id != request.user.id:
+        messages.info(request, 'you are not allowed to edit this account\'s information')
+        return redirect('home')
+
+    delete_stored_upload(su.upload_id, True)
+    profile_info.profile_picture = ""
+    profile_info.save()
+
+    messages.success(request, 'your profile picture has been deleted, you can now upload another one')
+
+    url = reverse('edit-profile', args=[user_info.username])
+    return redirect(url)
     

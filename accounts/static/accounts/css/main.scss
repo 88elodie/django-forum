@@ -38,7 +38,30 @@
 
 }
 
-#filepond {
-    width: 200px;
-    margin-top: 20px;
+.profile-form-container {
+
+    h2{
+        margin-bottom: 30px;
+    }
+
+    #filepond {
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .change-pfp{
+        display: block;
+        margin-bottom: 20px;
+        background-color: $darker_black;
+        border-radius: 4px;
+        width: fit-content;
+        padding: 20px;
+        text-decoration: none;
+        color: $light-grey;
+
+        span {
+            text-decoration: underline;
+            color: $off-white !important;
+        }
+    }
 }
