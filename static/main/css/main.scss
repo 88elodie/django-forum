@@ -24,6 +24,10 @@ main {
   margin: 40px;
   font-family: $main_font;
   font-weight: 500;
+
+  h2 {
+    margin-bottom: 30px;
+  }
 }
 
 a {
@@ -140,5 +144,6 @@ p.info {
 @import 'home.scss';
 @import 'signup.scss';
 @import 'login.scss';
+@import 'password.scss';
 @import 'posts/css/main.scss';
 @import 'accounts/css/main.scss';

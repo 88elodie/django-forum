@@ -67,6 +67,7 @@
     <p>username : {{user.username}}</p>
     <p>email : {{user.email}}</p>
     <a href="{% url 'edit-account' user.username %}">edit my information</a>
+    <a href="{% url 'password_change' %}">change my password</a>
 </div>
 {% endif %}
 </div>
