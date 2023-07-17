@@ -1,14 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404, reverse
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
-from .models import Post, File
+from .models import Post, File, Comment
 from accounts.models import Profile
 from django_drf_filepond.api import store_upload, delete_stored_upload
-import os
 from django_drf_filepond.models import TemporaryUpload
 from django.core import serializers
-from django.http import JsonResponse
 
 # Create your views here.
 
@@ -20,8 +18,24 @@ def SinglePost(request, pk):
     post = get_object_or_404(Post, id=pk)
     files = File.objects.filter(post_id=pk)
     author_profile = get_object_or_404(Profile, user_id=post.author_id)
+    comments = Comment.objects.filter(post_id=pk)
+    comment_form = CommentForm()
 
-    return render(request, 'single_post.html',context={'post': post, 'images': files, 'author_profile': author_profile})
+    if request.method == 'POST':
+        comment_post = CommentForm(request.POST)
+        if comment_post.is_valid():
+            # add user to the instance ↓
+            comment_post.instance.user_id = request.user.id
+            comment_post.instance.post_id = pk
+            comment = comment_post.save()
+            messages.success(request, 'your comment was posted !')
+            url = reverse('single-post', args=[pk])
+            return redirect(url)
+        
+    return render(request, 'single_post.html',context={'post': post, 'images': files, 'author_profile': author_profile, 'form': comment_form, 'comments': comments})
+
+
+
 
 @login_required
 def CreatePost(request):

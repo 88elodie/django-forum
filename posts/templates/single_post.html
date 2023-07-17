@@ -85,4 +85,33 @@
     {% endif %}
 </section>
 
+<article>
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {% if field.errors %}
+            <ul class="errorlist">
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+             {{ field.label_tag|lower }} <br> {{ field }}
+        </p>
+        {% endfor %}
+        <button type="submit">post comment</button>
+      </form>
+
+      {% for comment in comments %}
+      <div>
+        by {{comment.user.username}}
+        {% if comment.user.id == post.author.id %}
+        <span>(author)</span>
+        {% endif %}
+        : {{comment.comment}}
+      </div>
+      {% endfor %}
+</article>
+
 {% endblock %}
