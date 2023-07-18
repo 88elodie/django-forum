@@ -169,3 +169,57 @@
     }
 
 }
+
+//comments
+.comments-container {
+    margin: auto;
+    width: 75%;
+    padding: 30px;
+    background-color: $darker_black;
+    border-radius: 5px;
+    margin-top: 10px;
+
+    textarea {
+        height: 100px;
+    }
+
+    .comment {
+        margin-top: 10px;
+        padding: 20px;
+        background-color: black;
+        border-radius: 7px;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 20px;
+
+        .comment-user {
+
+            img{
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+            }
+        }
+
+        .comment-content {
+
+            p {
+                word-wrap: break-word;
+            }
+
+            .comment-username{
+                color: $light-grey;
+                margin-bottom: 10px;
+
+                a {
+                    color: $light-grey;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

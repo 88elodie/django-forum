@@ -85,7 +85,7 @@
     {% endif %}
 </section>
 
-<article>
+<article class="comments-container">
     <form method="POST">
         {% csrf_token %}
         {% for field in form %}
@@ -104,12 +104,22 @@
       </form>
 
       {% for comment in comments %}
-      <div>
-        by {{comment.user.username}}
-        {% if comment.user.id == post.author.id %}
-        <span>(author)</span>
-        {% endif %}
-        : {{comment.comment}}
+      <div class="comment">
+        <div class="comment-user">
+            {% if comment.user.profile.profile_picture %}
+            <img class="mini-pfp" src="{{MEDIA_URL}}{{comment.user.profile.profile_picture}}" alt="">
+            {% endif %}
+        </div>
+        <div class="comment-content">
+            <p class="comment-username">
+            by 
+            <a href="{% url 'profile' comment.user %}">{{comment.user.username}}</a>
+            {% if comment.user.id == post.author.id %}
+            (author)
+            {% endif %}
+            </p>
+            <p>{{comment.comment}}</p>
+        </div>
       </div>
       {% endfor %}
 </article>

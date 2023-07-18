@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
         return self.username
     
 class Profile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, blank=True)
     about = models.TextField(max_length=200, blank=True, validators=[
         MaxLengthValidator(200, 'your about can only have 200 characters')

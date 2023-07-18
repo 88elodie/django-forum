@@ -32,8 +32,8 @@ class File(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    comment = models.TextField(max_length=300, validators = [
+    comment = models.TextField(max_length=1000, validators = [
             MinLengthValidator(1, 'your comment needs at least 1 character'),
-            MaxLengthValidator(300, 'your comment can only have 300 characters')
+            MaxLengthValidator(1000, 'your comment can only have 300 characters')
         ])
     created_at = models.DateTimeField(auto_now_add=True)
