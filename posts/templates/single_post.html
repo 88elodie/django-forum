@@ -100,7 +100,9 @@
              {{ field.label_tag|lower }} <br> {{ field }}
         </p>
         {% endfor %}
+        <div class="button-container">
         <button type="submit">post comment</button>
+        </div>
       </form>
 
       {% for comment in comments %}

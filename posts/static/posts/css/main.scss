@@ -179,8 +179,13 @@
     border-radius: 5px;
     margin-top: 10px;
 
+    .button-container {
+        text-align: right;
+    }
+
     textarea {
         height: 100px;
+        margin-bottom: 0;
     }
 
     .comment {

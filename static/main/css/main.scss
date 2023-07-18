@@ -202,6 +202,7 @@ form {
     border-radius: 4px;
     padding: 5px;
     width: 100%;
+    box-sizing: border-box;
 
     &:active, &:focus, &:focus-visible {
       border: 2px solid $accent-color;
