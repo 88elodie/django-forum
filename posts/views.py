@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404, reverse
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
-from .models import Post, File, Comment
+from .models import Post, File, Comment, Board
 from accounts.models import Profile
 from django_drf_filepond.api import store_upload, delete_stored_upload
 from django_drf_filepond.models import TemporaryUpload
@@ -10,8 +10,8 @@ from django.core import serializers
 
 # Create your views here.
 
-def index(request):
-    posts = Post.objects.all().prefetch_related("author").order_by('-created_at')
+def index(request, pk):
+    posts = Post.objects.prefetch_related("author").order_by('-created_at').filter(board_id=pk)
     return render(request, 'posts_index.html', context={"posts": posts})
 
 def SinglePost(request, pk):

@@ -14,15 +14,23 @@
 </section>
 {% endif %}
 
-{% if user.is_authenticated %}
 <div class="home-container">
-  <p>Hi {{ user.username }}!</p>
-  <p>Welcome to the forum ...</p>
+    {% if user.is_authenticated %}
+    <p>Hi {{ user.username }}!</p>
+    <p>Welcome to the forum ...</p>
+    {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">sign up</a>
+    {% endif %}
+
+    <div class="boards">
+        {% for board in boards %}
+        <div class="board">
+            <h4>{{board.name}}</h4>
+            <span>{{board.description}}</span>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-{% else %}
-<div class="home-container">
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">sign up</a>
-</div>
-{% endif %}
+
 {% endblock %}
