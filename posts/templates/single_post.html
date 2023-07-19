@@ -119,6 +119,24 @@
             {% if comment.user.id == post.author.id %}
             (author)
             {% endif %}
+            @ 
+            {% if comment.created_at|date:"o" == year %}
+                {% if comment.created_at|date:"W" == week %}
+                    {% if 'minutes' in comment.created_at|timesince %}
+                        <span>{{comment.created_at|timesince}} ago</span><br>
+                    {% elif comment.created_at|date:"w" == day %}
+                        <span>today, {{comment.created_at|time}}</span><br>
+                    {% elif post.created_at|date:"w"|add:"1" == day|add:0 %}
+                        <span>yesterday, {{comment.created_at|time}}</span><br>
+                    {% else %}
+                    <span>{{comment.created_at|date:"l\, g:i a"}}</span><br>
+                    {% endif %}
+                {% else %}
+                    <span>{{comment.created_at|date:"F jS\, g:i a"}}</span><br>
+                {% endif %}
+            {% else %}
+                <span>{{comment.created_at|date:"F jS o\, g:i a"}}</span><br>
+            {% endif %}
             </p>
             <p>{{comment.comment}}</p>
         </div>
