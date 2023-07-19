@@ -8,8 +8,9 @@ from django.utils import timezone
 # Create your models here.
 
 class Board(models.Model):
-    name = models.CharField
-    
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    members_only = models.BooleanField(default=False)
 
 class Post(models.Model):
     title = models.CharField(max_length=50, validators=[
@@ -22,6 +23,7 @@ class Post(models.Model):
                             ]
                             )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
