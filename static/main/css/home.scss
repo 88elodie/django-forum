@@ -1,8 +1,32 @@
 .home-container {
   margin: auto;
-  width: 50%;
+  width: 75%;
 
   a {
     color: $off-white;
+  }
+}
+
+.boards {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 30px;
+  gap: 10px;
+
+  .board {
+    background-color: $darker_black;
+    padding: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    flex: 1 1 0px;
+    min-width: 300px;
+
+    p {
+      max-width: 250px;
+    }
+
+    span {
+      color: $light-grey;
+    }
   }
 }
