@@ -19,7 +19,7 @@
         <h2>{{board.name}}</h2>
         {% if user.is_authenticated %}
         <div class="create-post">
-            <a href="{% url 'create-post' %}">create post ✎</a>
+            <a href="{% url 'create-post' board.id %}">create post ✎</a>
         </div>
         {% endif %}
     </div>

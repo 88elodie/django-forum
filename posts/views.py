@@ -17,7 +17,7 @@ def index(request, board):
     return render(request, 'posts_index.html', context={"posts": posts, 'board': board})
 
 def SinglePost(request, pk):
-    post = get_object_or_404(Post, id=pk)
+    post = Post.objects.filter(id=pk).first()
     files = File.objects.filter(post_id=pk)
     author_profile = get_object_or_404(Profile, user_id=post.author_id)
     comments = Comment.objects.filter(post_id=pk)
@@ -40,12 +40,14 @@ def SinglePost(request, pk):
 
 
 @login_required
-def CreatePost(request):
+def CreatePost(request, board):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
             # add user to the instance ↓
             post_form.instance.author_id = request.user.id
+            # add board to the instance ↓
+            post_form.instance.board_id = board
             post = post_form.save()
 
             
@@ -69,7 +71,9 @@ def CreatePost(request):
 
             messages.success(request, 'your post was successfully created !')
             # return redirect('seed:view_seed')
-            return redirect('posts')
+            board = Board.objects.filter(id=board).first()
+            url = reverse('single-post', args=[post.id])
+            return redirect(url)
         else:
             messages.error(request, 'please correct the error below')
     else:
@@ -102,10 +106,12 @@ def EditPost(request, pk):
 
 def DeletePost(request, pk):
     post = get_object_or_404(Post, id=pk)
+    board = Board.objects.filter(id=post.board_id).first()
 
     if post.author_id != request.user.id:
         messages.info(request, 'you are not allowed to delete this post')
-        return redirect('posts')
+        url = reverse('posts', args=[board.slug])
+        return redirect(url)
     else:
         files = File.objects.filter(post_id=pk)
         for file in files:
@@ -113,6 +119,7 @@ def DeletePost(request, pk):
             file.delete()
         post.delete()
         messages.success(request, 'your post has been deleted successfully.')
-        return redirect('posts')
+        url = reverse('posts', args=[board.slug])
+        return redirect(url)
 
 
