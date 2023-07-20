@@ -26,7 +26,7 @@
     <div class="boards">
         {% for board in boards %}
         <div class="board">
-            <h4><a href="{% url 'posts' board.id %}">{{board.name}}</a></h4>
+            <h4><a href="{% url 'posts' board.slug %}">{{board.name}}</a></h4>
             <p>{{board.description}}</p>
             <span>{{board.post_count}} posts</span>
         </div>

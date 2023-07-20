@@ -10,9 +10,11 @@ from django.core import serializers
 
 # Create your views here.
 
-def index(request, pk):
-    posts = Post.objects.prefetch_related("author").order_by('-created_at').filter(board_id=pk)
-    return render(request, 'posts_index.html', context={"posts": posts})
+def index(request, board):
+    board = Board.objects.filter(slug=board).first()
+    posts = Post.objects.prefetch_related("author").order_by('-created_at').filter(board_id=board.id)
+
+    return render(request, 'posts_index.html', context={"posts": posts, 'board': board})
 
 def SinglePost(request, pk):
     post = get_object_or_404(Post, id=pk)

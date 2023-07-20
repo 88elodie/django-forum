@@ -16,7 +16,7 @@
 
 <article class="posts-container">
     <div class="header">
-        <h2>posts</h2>
+        <h2>{{board.name}}</h2>
         {% if user.is_authenticated %}
         <div class="create-post">
             <a href="{% url 'create-post' %}">create post ✎</a>
@@ -25,6 +25,9 @@
     </div>
 
     <section class="posts-grid">
+    {% if posts|length == 0 %}
+    <div>there are no posts on this board yet ...</div>
+    {% endif %}
     {% for post in posts %}
     <div>
     <a href="{% url 'single-post' post.id %}">

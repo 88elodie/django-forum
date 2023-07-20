@@ -9,6 +9,7 @@ from django.utils import timezone
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
     description = models.CharField(max_length=200)
     members_only = models.BooleanField(default=False)
 
