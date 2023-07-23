@@ -8,5 +8,6 @@ urlpatterns = [
     path('profile/<str:user>/', views.profile, name='profile'),
     path('profile/edit/<str:user>/', views.EditProfile, name='edit-profile'),
     path('edit/<str:user>/', views.EditAccount, name='edit-account'),
-    path('profile/deletepfp/<int:id>/', views.DeletePfp, name='delete-pfp')
+    path('profile/deletepfp/<int:id>/', views.DeletePfp, name='delete-pfp'),
+    path('alerts/', views.Alerts, name='alerts')
 ]

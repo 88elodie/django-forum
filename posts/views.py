@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render, get_object_or_404, reverse
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from .models import Post, File, Comment, Board
-from accounts.models import Profile
+from accounts.models import Profile, Alert
 from django_drf_filepond.api import store_upload, delete_stored_upload
 from django_drf_filepond.models import TemporaryUpload
 from django.core import serializers
@@ -30,6 +30,16 @@ def SinglePost(request, pk):
             comment_post.instance.user_id = request.user.id
             comment_post.instance.post_id = pk
             comment = comment_post.save()
+
+            # comment alert to post author
+            if post.author_id != request.user.id:
+                alert = Alert()
+                alert.user_id = post.author_id
+                alert.alerter_id = request.user.id
+                alert.alert_type = "comment"
+                alert.post_id = post.id
+                alert.save()
+
             messages.success(request, 'your comment was posted !')
             url = reverse('single-post', args=[pk])
             return redirect(url)
