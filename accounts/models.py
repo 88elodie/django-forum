@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
-from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.core.validators import MaxLengthValidator
+from posts.models import Post
 
 User = settings.AUTH_USER_MODEL
 
@@ -20,5 +21,12 @@ class Profile(models.Model):
         MaxLengthValidator(200, 'your about can only have 200 characters')
     ])
     profile_picture = models.CharField(max_length=2048, blank=True)
-    
+
+class Alert(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='alerts_received')
+    alerter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='alerts_sent')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    alert_type = models.CharField(max_length=50)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     
