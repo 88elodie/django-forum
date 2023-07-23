@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<section class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endif %}
+
+<section class="alerts-container">
+    {% for alert in alerts %}
+        {% if alert.alert_type == "comment" %}
+        <div class="alert">{{alert.alerter.username}} commented on your post ({{alert.post.title}})</div><br>
+        {% elif alert.alert_type == "like" %}
+
+        {% endif %}
+    {% endfor %}
+</section>
+
+{% endblock %}

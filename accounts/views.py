@@ -3,7 +3,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, Profile
+from .models import CustomUser, Profile, Alert
 from posts.models import Post
 from django.contrib import messages
 from django_drf_filepond.api import store_upload, delete_stored_upload
@@ -93,4 +93,9 @@ def DeletePfp(request, id):
 
     url = reverse('edit-profile', args=[user_info.username])
     return redirect(url)
+
+def Alerts(request):
+    alerts = Alert.objects.filter(user_id=request.user.id).order_by('-created_at')
+
+    return render(request, "alerts.html", context={"alerts": alerts})
     
