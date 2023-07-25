@@ -40,6 +40,18 @@
 	{% else %}
 	<input type="file" name="filepond" multiple>
 	{% endif %}
+
+	{% if files %}
+	<div class="prev-imgs">
+		{% for file in files %}
+		<div>
+		<span><a href="{% url 'delete-img' file.id %}">x</a></span>
+		<img src="{{MEDIA_URL}}{{file.file}}" alt="">
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
     <button type="submit">{% if id %} save {% else %} publish {% endif %} post</button>
   </form>
 

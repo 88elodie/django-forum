@@ -108,6 +108,25 @@ def EditPost(request, pk):
             post_form.save()
             messages.success(request, 'your post was successfully updated !')
             post_id = post.id
+
+            # upload files in permanent folder and save to database
+            for image in request.POST.getlist('filepond'):
+                if image:
+                    #get upload name
+                    tu = TemporaryUpload.objects.get(upload_id=image)
+
+                    # upload to permanent storage
+                    file_info = store_upload(image, str(request.user.id)+'/'+str(post.id)+'/'+tu.upload_name)
+                    # create File object and assign data
+                    post_file = File()
+
+                    post_file.upload_id = file_info.upload_id
+                    post_file.file = file_info.file
+                    post_file.post_id = post.id
+                    post_file.uploaded_by_id = request.user.id
+                    # save file object to DB
+                    post_file.save()
+
             url = reverse('single-post', args=[post_id])
             return redirect(url)
         else:
@@ -131,5 +150,20 @@ def DeletePost(request, pk):
         messages.success(request, 'your post has been deleted successfully.')
         url = reverse('posts', args=[board.slug])
         return redirect(url)
+    
+def DeleteImg(request, id):
+    img_file = get_object_or_404(File, id=id)
+
+    if img_file.uploaded_by_id != request.user.id:
+        messages.info(request, 'you are not allowed to perform this action')
+        return redirect('home')
+
+    delete_stored_upload(img_file.upload_id, True)
+    img_file.delete()
+
+    messages.success(request, 'your image has been deleted, you can now upload another one')
+
+    url = reverse('edit-post', args=[img_file.post_id])
+    return redirect(url)
 
 
