@@ -112,7 +112,7 @@ def EditPost(request, pk):
             return redirect(url)
         else:
             messages.error(request, 'please correct the following errors')
-    return render(request, "post_form.html", context={"form": post_form, "files": files})
+    return render(request, "post_form.html", context={"form": post_form, "files": files, 'filesJson': filesJson})
 
 def DeletePost(request, pk):
     post = get_object_or_404(Post, id=pk)

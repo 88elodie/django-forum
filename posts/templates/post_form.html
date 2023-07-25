@@ -33,6 +33,10 @@
 	</p>
 	{% endfor %}
 	{% if id %}
+		{% if files|length == 3 %}
+		{% else %}
+		<input type="file" name="filepond" multiple>
+		{% endif %}
 	{% else %}
 	<input type="file" name="filepond" multiple>
 	{% endif %}
@@ -41,11 +45,15 @@
 
 </article>
 
+<!-- transfer img data to js app -->
 {% if id %}
 <script>
  let imageUrls = JSON.parse("{{filesJson|escapejs}}")
 </script>
 {% endif %}
+
+
+<!-- limit char typing in textfield -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
@@ -64,8 +72,6 @@
             }
         });
     }); //end if ready(fn)
-
-
 </script>
   
   

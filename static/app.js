@@ -6,8 +6,18 @@ FilePond.registerPlugin(FilePondPluginImageCrop);
 FilePond.registerPlugin(FilePondPluginImageResize);
 FilePond.registerPlugin(FilePondPluginImageEdit);
 
-// imageUrls.map(url => (console.log(url.fields)))
+let imgCount = 3;
 
+//debugging
+if(location.pathname.includes("/posts/edit/")){
+    imageUrls.map(url => (console.log(url.fields)));
+
+    if(imageUrls){
+        imgCount = 3 - imageUrls.length;
+    }
+}
+
+//get csrf cookie
 const getCookie = (name) => {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
@@ -50,10 +60,11 @@ const inputElement = document.querySelector('input[type="file"]');
 // Create a FilePond instance
 if(location.pathname.includes("/posts/")){
     const pond = FilePond.create(inputElement, {
-        maxFiles: 3,
+        maxFiles: imgCount,
         maxFileSize: '2MB',
         acceptedFileTypes: ['image/*'],
         // files:[{ source: '?id='+imageUrls[0].fields.upload_id, options: { type: 'local' }}]
+
         //keep gif format
         //source : https://stackoverflow.com/questions/58874156/make-filepond-image-transform-plugin-ignore-animated-gifs
         imageTransformImageFilter: (file) => new Promise(resolve => {
