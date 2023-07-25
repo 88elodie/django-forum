@@ -95,6 +95,12 @@
         margin-bottom: 30px;
     }
 
+    span {
+        padding-bottom: 10px;
+        display: inline-block;
+        color: $light-grey;
+    }
+
     .prev-imgs {
         display: flex;
         flex-flow: row nowrap;
