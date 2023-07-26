@@ -125,7 +125,7 @@
             (author)
             {% endif %}
             @ 
-            <span>{% format_post_date comment.created_at text='' %}</span><br>
+            <span>{% format_post_date comment.created_at|date:"Y-m-d H:i:s" text='' %}</span><br>
             <!-- {% if comment.created_at|date:"o" == year %}
                 {% if comment.created_at|date:"W" == week %}
                     {% if 'minutes' in comment.created_at|timesince %}
