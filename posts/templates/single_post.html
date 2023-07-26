@@ -3,7 +3,6 @@
 {% block title %}Posts{% endblock %}
 
 {% block content %}
-{% load custom_tags %}
 
     {% if messages %}
     <section class="messages">
@@ -125,8 +124,7 @@
             (author)
             {% endif %}
             @ 
-            <span>{% format_post_date comment.created_at|date:"Y-m-d H:i:s" text='' %}</span><br>
-            <!-- {% if comment.created_at|date:"o" == year %}
+            {% if comment.created_at|date:"o" == year %}
                 {% if comment.created_at|date:"W" == week %}
                     {% if 'minutes' in comment.created_at|timesince %}
                         <span>{{comment.created_at|timesince}} ago</span><br>
@@ -142,7 +140,7 @@
                 {% endif %}
             {% else %}
                 <span>{{comment.created_at|date:"F jS o\, g:i a"}}</span><br>
-            {% endif %} -->
+            {% endif %}
             </p>
             <p>{{comment.comment}}</p>
         </div>

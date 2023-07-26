@@ -5,7 +5,7 @@ from django.utils import timezone
 
 register = template.Library()
 
-@register.simple_tag
+@register.filter
 def format_post_date(post_date, text=''):
     if not post_date:
         return ''
