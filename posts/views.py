@@ -186,4 +186,16 @@ def DeleteImg(request, id):
     url = reverse('edit-post', args=[img_file.post_id])
     return redirect(url)
 
+def DeleteComment(request, pk):
+    comment = get_object_or_404(Comment, id=pk)
 
+    if comment.user_id != request.user.id:
+        messages.info(request, 'you are not allowed to perform this action')
+        return redirect('home')
+    
+    comment.delete()
+
+    messages.success(request, 'your comment was deleted')
+
+    url = reverse('single-post', args=[comment.post_id])
+    return redirect(url)

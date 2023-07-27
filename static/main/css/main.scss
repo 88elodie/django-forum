@@ -228,6 +228,11 @@ button, .button {
   font-size: 16px;
 }
 
+.bad-btn {
+  background-color: $bad-color;
+  text-decoration: none;
+}
+
 //messages
 
 p.success {

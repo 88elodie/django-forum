@@ -151,6 +151,7 @@
             {% if comment.user.id == request.user.id %}
             <div class="button-container">
                 <button class="edit-comment-button" data-comment-id="{{ comment.id }}">edit</button>
+                <a class="button bad-btn" href="{% url 'delete-comment' comment.id %}">delete</a>
             </div>
             {% endif %}
             </div>
@@ -162,7 +163,7 @@
                 {{form.as_p}}
                 <input type="hidden" name="comment_id" value="{{comment.id}}">
                 <div class="button-container">
-                    <span class="button cancel-edit-btn" data-comment-id="{{ comment.id }}">cancel</span>
+                    <span class="button cancel-edit-btn bad-btn" data-comment-id="{{ comment.id }}">cancel</span>
                     <button type="submit" name="edit-comment">save</button>
                 </div>
             </form>

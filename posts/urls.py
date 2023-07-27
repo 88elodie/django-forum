@@ -8,4 +8,5 @@ urlpatterns = [
     path('edit/<int:pk>/', views.EditPost, name='edit-post'),
     path('delete/<int:pk>/', views.DeletePost, name='delete-post'),
     path('deleteimg/<int:id>/', views.DeleteImg, name='delete-img'),
+    path('delete-comment/<int:pk>/', views.DeleteComment, name='delete-comment'),
 ]
