@@ -27,7 +27,9 @@ def SinglePost(request, pk):
     comments = Comment.objects.filter(post_id=pk)
     comment_form = CommentForm()
 
-    if request.method == 'POST':
+    # handle post requests (form submissions)
+    if request.method == 'POST' and 'new-comment' in request.POST:
+        #save new comment
         comment_post = CommentForm(request.POST)
         if comment_post.is_valid():
             # add user to the instance ↓
@@ -47,15 +49,14 @@ def SinglePost(request, pk):
             messages.success(request, 'your comment was posted !')
             url = reverse('single-post', args=[pk])
             return redirect(url)
-    elif request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        # Handle AJAX requests to update comment content
-        comment_id = request.POST.get('comment_id')
-        new_comment_text = request.POST.get('comment_text')
-        comment = get_object_or_404(Comment, id=comment_id, user=request.user)
-        comment.comment = new_comment_text
-        comment.save()
+    elif request.method == 'POST' and 'edit-comment' in request.POST:
+        #save edited comment
+        org_comment = Comment.objects.filter(id=request.POST.get('comment_id')).first()
+        comment_post = CommentForm(request.POST, instance=org_comment)
+        if comment_post.is_valid():
+            comment_post.save()
 
-        messages.success(request, 'your comment was posted !')
+        messages.success(request, 'your comment was updated !')
         url = reverse('single-post', args=[pk])
         return redirect(url)
         
