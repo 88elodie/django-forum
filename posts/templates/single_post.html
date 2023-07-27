@@ -34,7 +34,7 @@
     <div class="post-images">
     {% for image in images %}
         <div class="image">
-            <a href="{{MEDIA_URL}}{{image.file}}"" target="_blank">
+            <a href="{{MEDIA_URL}}{{image.file}}" target="_blank">
             <img src="{{MEDIA_URL}}{{image.file}}" alt="">
             </a>
         </div>
@@ -110,7 +110,7 @@
       </form>
 
       {% for comment in comments %}
-      <div class="comment">
+      <div class="comment" data-comment-id="{{comment.id}}">
         <div class="comment-user">
             {% if comment.user.profile.profile_picture %}
             <img class="mini-pfp" src="{{MEDIA_URL}}{{comment.user.profile.profile_picture}}" alt="">
@@ -142,10 +142,54 @@
                 <span>{{comment.created_at|date:"F jS o\, g:i a"}}</span><br>
             {% endif %}
             </p>
-            <p>{{comment.comment}}</p>
+            <p class="comment-body">{{comment.comment}}</p>
+
+            <div class="button-container">
+                <button class="edit-comment-button" data-comment-id="{{ comment.id }}">edit</button>
+            </div>
+
+            <!-- edit comment form -->
+            {% if comment.user.id == request.user.id %}
+            <form method="POST" class="edit-comment-form hidden" data-comment-id="{{ comment.id }}">
+                {% csrf_token %}
+                {{form.as_p}}
+                <div class="button-container">
+                    <button type="submit">save</button>
+                </div>
+            </form>
+
+            {% endif %}
+
         </div>
       </div>
       {% endfor %}
 </article>
+
+<script>
+    // Attach event listener to the parent container of the comment buttons
+    const commentsContainer = document.querySelector(".comments-container");
+    commentsContainer.addEventListener("click", handleEditCommentClick);
+
+    function handleEditCommentClick(event) {
+        const target = event.target;
+        if (target.classList.contains("edit-comment-button")) {
+            // Get the comment ID from the data attribute of the clicked button
+            const commentId = target.getAttribute("data-comment-id");
+            console.log(commentId);
+            const commentForm = document.querySelector(`.edit-comment-form[data-comment-id="${commentId}"]`);
+            const commentField = commentForm.querySelector('textarea[name="comment"]');
+
+            // Get the comment text from the corresponding comment content element
+            const commentContent = document.querySelector(`.comment[data-comment-id="${commentId}"] .comment-content .comment-body`);
+            const commentText = commentContent.textContent.trim();
+
+            // Populate the comment field with the comment text
+            commentField.value = commentText;
+
+            // Toggle the visibility of the edit comment form
+            commentForm.classList.toggle("hidden");
+        }
+    }
+</script>
 
 {% endblock %}
