@@ -117,6 +117,7 @@
             {% endif %}
         </div>
         <div class="comment-content">
+            <div class="comment-wrapper">
             <p class="comment-username">
             by 
             <a href="{% url 'profile' comment.user %}">{{comment.user.username}}</a>
@@ -147,6 +148,7 @@
             <div class="button-container">
                 <button class="edit-comment-button" data-comment-id="{{ comment.id }}">edit</button>
             </div>
+            </div>
 
             <!-- edit comment form -->
             {% if comment.user.id == request.user.id %}
@@ -154,6 +156,7 @@
                 {% csrf_token %}
                 {{form.as_p}}
                 <div class="button-container">
+                    <span class="button cancel-edit-btn" data-comment-id="{{ comment.id }}">cancel</span>
                     <button type="submit">save</button>
                 </div>
             </form>
@@ -175,12 +178,15 @@
         if (target.classList.contains("edit-comment-button")) {
             // Get the comment ID from the data attribute of the clicked button
             const commentId = target.getAttribute("data-comment-id");
-            console.log(commentId);
             const commentForm = document.querySelector(`.edit-comment-form[data-comment-id="${commentId}"]`);
             const commentField = commentForm.querySelector('textarea[name="comment"]');
 
+            //hide comment when editing
+            const commentWrapper = document.querySelector(`.comment[data-comment-id="${commentId}"] .comment-wrapper`);
+            commentWrapper.classList.toggle("hidden");
+
             // Get the comment text from the corresponding comment content element
-            const commentContent = document.querySelector(`.comment[data-comment-id="${commentId}"] .comment-content .comment-body`);
+            const commentContent = document.querySelector(`.comment[data-comment-id="${commentId}"] .comment-content .comment-wrapper .comment-body`);
             const commentText = commentContent.textContent.trim();
 
             // Populate the comment field with the comment text
@@ -188,6 +194,18 @@
 
             // Toggle the visibility of the edit comment form
             commentForm.classList.toggle("hidden");
+
+        }else if(target.classList.contains("cancel-edit-btn")){
+            // Get the comment ID from the data attribute of the clicked button
+            const commentId = target.getAttribute("data-comment-id");
+
+            // Toggle the visibility of the edit comment form
+            const commentForm = document.querySelector(`.edit-comment-form[data-comment-id="${commentId}"]`);
+            commentForm.classList.toggle("hidden");
+
+            //show comment when cancel
+            const commentWrapper = document.querySelector(`.comment[data-comment-id="${commentId}"] .comment-wrapper`);
+            commentWrapper.classList.toggle("hidden");
         }
     }
 </script>

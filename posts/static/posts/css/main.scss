@@ -259,6 +259,7 @@
         }
 
         .comment-content {
+            width: 100%;
 
             p {
                 word-wrap: break-word;
@@ -276,6 +277,10 @@
                         text-decoration: underline;
                     }
                 }
+            }
+
+            .cancel-edit-btn {
+                background-color: $bad-color;
             }
         }
     }

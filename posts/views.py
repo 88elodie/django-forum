@@ -47,6 +47,17 @@ def SinglePost(request, pk):
             messages.success(request, 'your comment was posted !')
             url = reverse('single-post', args=[pk])
             return redirect(url)
+    elif request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # Handle AJAX requests to update comment content
+        comment_id = request.POST.get('comment_id')
+        new_comment_text = request.POST.get('comment_text')
+        comment = get_object_or_404(Comment, id=comment_id, user=request.user)
+        comment.comment = new_comment_text
+        comment.save()
+
+        messages.success(request, 'your comment was posted !')
+        url = reverse('single-post', args=[pk])
+        return redirect(url)
         
     return render(request, 'single_post.html',context={'post': post, 'images': files, 'author_profile': author_profile, 'form': comment_form, 'comments': comments})
 
