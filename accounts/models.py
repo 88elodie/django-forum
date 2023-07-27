@@ -21,6 +21,7 @@ class Profile(models.Model):
         MaxLengthValidator(200, 'your about can only have 200 characters')
     ])
     profile_picture = models.CharField(max_length=2048, blank=True)
+    get_comment_alerts = models.BooleanField(default=True)
 
 class Alert(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='alerts_received')

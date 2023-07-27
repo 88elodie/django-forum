@@ -38,7 +38,7 @@ def SinglePost(request, pk):
             comment = comment_post.save()
 
             # comment alert to post author
-            if post.author_id != request.user.id:
+            if (post.author_id != request.user.id) and author_profile.get_comment_alerts:
                 alert = Alert()
                 alert.user_id = post.author_id
                 alert.alerter_id = request.user.id

@@ -17,4 +17,4 @@ class CustomUserChangeForm(UserChangeForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['status', 'about']
+        fields = ['status', 'about', 'get_comment_alerts']
