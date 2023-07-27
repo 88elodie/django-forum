@@ -90,6 +90,7 @@
 </section>
 
 <article class="comments-container">
+    {% if user.is_authenticated %}
     <form method="POST">
         {% csrf_token %}
         {% for field in form %}
@@ -108,6 +109,7 @@
         <button type="submit" name="new-comment">post comment</button>
         </div>
       </form>
+      {% endif %}
 
       {% for comment in comments %}
       <div class="comment" data-comment-id="{{comment.id}}">
@@ -142,12 +144,15 @@
             {% else %}
                 <span>{{comment.created_at|date:"F jS o\, g:i a"}}</span><br>
             {% endif %}
+            {% if comment.is_edited %} (edited){% endif %}
             </p>
             <p class="comment-body">{{comment.comment}}</p>
 
+            {% if comment.user.id == request.user.id %}
             <div class="button-container">
                 <button class="edit-comment-button" data-comment-id="{{ comment.id }}">edit</button>
             </div>
+            {% endif %}
             </div>
 
             <!-- edit comment form -->

@@ -46,3 +46,5 @@ class Comment(models.Model):
         MaxLengthValidator(1000, 'your comment can only have 300 characters')
     ])
     created_at = models.DateTimeField(auto_now_add=True)
+    is_edited = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)

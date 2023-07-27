@@ -53,13 +53,17 @@ def SinglePost(request, pk):
         #save edited comment
         org_comment = Comment.objects.filter(id=request.POST.get('comment_id')).first()
         comment_post = CommentForm(request.POST, instance=org_comment)
-        if comment_post.is_valid():
-            comment_post.save()
 
-        messages.success(request, 'your comment was updated !')
-        url = reverse('single-post', args=[pk])
-        return redirect(url)
-        
+        # make sure the comment was actually edited
+        if request.POST.get('comment') != org_comment.comment:
+            if comment_post.is_valid():
+                comment_post.instance.is_edited = True
+                comment_post.save()
+
+            messages.success(request, 'your comment was updated !')
+            url = reverse('single-post', args=[pk])
+            return redirect(url)
+
     return render(request, 'single_post.html',context={'post': post, 'images': files, 'author_profile': author_profile, 'form': comment_form, 'comments': comments})
 
 
