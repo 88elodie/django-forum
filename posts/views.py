@@ -7,14 +7,18 @@ from accounts.models import Profile, Alert
 from django_drf_filepond.api import store_upload, delete_stored_upload
 from django_drf_filepond.models import TemporaryUpload
 from django.core import serializers
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def index(request, board):
     board = Board.objects.filter(slug=board).first()
     posts = Post.objects.prefetch_related("author").order_by('-created_at').filter(board_id=board.id)
+    paginator = Paginator(posts, 25)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'posts_index.html', context={"posts": posts, 'board': board})
+    return render(request, 'posts_index.html', context={"posts": posts, 'board': board, 'page_obj': page_obj})
 
 def SinglePost(request, pk):
     post = Post.objects.filter(id=pk).first()
