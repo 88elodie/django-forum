@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxLengthValidator
-from posts.models import Post
+from posts.models import Post, Comment
 
 User = settings.AUTH_USER_MODEL
 
@@ -27,6 +27,7 @@ class Alert(models.Model):
     alerter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='alerts_sent')
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     alert_type = models.CharField(max_length=50)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     

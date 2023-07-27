@@ -44,6 +44,7 @@ def SinglePost(request, pk):
                 alert.alerter_id = request.user.id
                 alert.alert_type = "comment"
                 alert.post_id = post.id
+                alert.comment_id = comment.id
                 alert.save()
 
             messages.success(request, 'your comment was posted !')
@@ -188,6 +189,7 @@ def DeleteImg(request, id):
 
 def DeleteComment(request, pk):
     comment = get_object_or_404(Comment, id=pk)
+    
 
     if comment.user_id != request.user.id:
         messages.info(request, 'you are not allowed to perform this action')
