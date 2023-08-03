@@ -95,6 +95,15 @@ def DeletePfp(request, id):
     return redirect(url)
 
 def Alerts(request):
+    if request.method == 'POST':
+        for alert in request.POST.getlist('alert'):
+            a = Alert.objects.filter(id=alert).first()
+            if a:
+                a.is_read = True
+                a.save()
+            else:
+                messages.error(request, 'error encountered, one of the alerts does not exist')
+    
     alerts = Alert.objects.filter(user_id=request.user.id).order_by('-created_at')
 
     return render(request, "alerts.html", context={"alerts": alerts})
