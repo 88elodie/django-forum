@@ -99,6 +99,10 @@ def Alerts(request):
         for alert in request.POST.getlist('alert'):
             a = Alert.objects.filter(id=alert).first()
             if a:
+                if a.user.id != request.user.id:
+                    messages.info(request, 'you are not allowed to perform this action')
+                    return redirect('alerts')
+                
                 a.is_read = True
                 a.save()
             else:
@@ -107,4 +111,19 @@ def Alerts(request):
     alerts = Alert.objects.filter(user_id=request.user.id).order_by('-created_at')
 
     return render(request, "alerts.html", context={"alerts": alerts})
+
+def MarkUnread(request, a):
+    a = Alert.objects.filter(id=a).first()
+
+    if a:
+        if a.user.id != request.user.id:
+            messages.info(request, 'you are not allowed to perform this action')
+            return redirect('alerts')
+        
+        a.is_read = False
+        a.save()
+    else:
+        messages.error(request, 'error encountered, one of the alerts does not exist')
+    
+    return redirect('alerts')
     

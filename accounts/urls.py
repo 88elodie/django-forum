@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/edit/<str:user>/', views.EditProfile, name='edit-profile'),
     path('edit/<str:user>/', views.EditAccount, name='edit-account'),
     path('profile/deletepfp/<int:id>/', views.DeletePfp, name='delete-pfp'),
-    path('alerts/', views.Alerts, name='alerts')
+    path('alerts/', views.Alerts, name='alerts'),
+    path('alerts/mark-unread/<int:a>', views.MarkUnread, name='mark-unread')
 ]

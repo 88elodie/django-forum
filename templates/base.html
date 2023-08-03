@@ -25,7 +25,7 @@
             <ul>
                 <li><a href="{% url 'home' %}">home</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'alerts' %}">alerts({{alerts_count}})</a></li>
+                <li><a href="{% url 'alerts' %}">alerts{% if alerts_count %}({{alerts_count}}){% endif %}</a></li>
                 <li><a href="{% url 'profile' request.user %}">profile</a></li>
                 <li><a href="{% url 'logout' %}">log out</a></li>
                 {% else %}

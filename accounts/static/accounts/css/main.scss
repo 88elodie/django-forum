@@ -73,7 +73,27 @@
 
 //alerts
 .alerts-container {
+    .alert {
+        padding: 20px;
+        margin-bottom: 10px;
+        background-color: $darker_black;
+        border-radius: 5px;
+
+        .alert-content{
+        display: inline-block;
+        word-wrap: break-word ;
+        }
+    }
+
+    .mark-unread {
+        float:right;
+    }
+
     .read {
         color: $light-grey;
+
+        a {
+            color: $light-grey;
+        }
     }
 }

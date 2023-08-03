@@ -19,16 +19,21 @@
     {% csrf_token %}
 
     {% for alert in alerts %}
+    <div class="alert">
         {% if not alert.is_read %}
         <input type="checkbox" id="{{alert.id}}" name="alert" value="{{alert.id}}">
         {% endif %}
         {% if alert.alert_type == "comment" %}
-        <div class="alert {% if alert.is_read %}read{% endif %}">{{alert.alerter.username}} commented on your post ({{alert.post.title|truncatechars:10}})</div><br>
+        <div class="alert-content{% if alert.is_read %} read{% endif %}">{{alert.alerter.username}} commented on your post (<a href="{% url 'single-post' alert.post.id %}">{{alert.post.title|truncatechars:10}}</a>) 
+        {% if alert.is_read %}
+        <a class="mark-unread" href="{% url 'mark-unread' alert.id %}">mark as unread</a>
+        {% endif %}</div><br>
         {% elif alert.alert_type == "like" %}
 
         {% endif %}
+    </div>
     {% endfor %}
-    <button type="submit">submit</button>
+    <button type="submit">mark as read</button>
     </form>
 </section>
 
