@@ -2,6 +2,10 @@
   margin: auto;
   width: 75%;
 
+  @media (max-width: 750px) {
+    width: auto;
+  }
+
   a {
     color: $off-white;
   }
