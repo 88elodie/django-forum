@@ -73,6 +73,11 @@
 
 //alerts
 .alerts-container {
+
+    h2 {
+        margin-bottom: 30px;
+    }
+    
     .alert {
         padding: 20px;
         margin-bottom: 10px;
@@ -83,10 +88,6 @@
         display: inline-block;
         word-wrap: break-word ;
         }
-    }
-
-    .mark-unread {
-        float:right;
     }
 
     .read {

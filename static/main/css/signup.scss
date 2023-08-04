@@ -5,9 +5,17 @@
     background-color: $darker_black;
     border-radius: 5px;
 
+    @media (max-width: 750px) {
+        width: auto;
+    }
+
     .content {
         display: flex;
         flex-flow: row nowrap;
+
+        @media (max-width: 750px) {
+            flex-flow: column nowrap;
+        }
 
         & > div:first-child {
             margin-right: 40px;

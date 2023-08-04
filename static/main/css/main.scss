@@ -18,12 +18,17 @@ body {
   margin: 20px;
   background-color: $black;
   color: $off-white;
+  font-size: 1.5rem;
 }
 
 main {
-  margin: 40px;
   font-family: $main_font;
   font-weight: 500;
+  margin-top: 40px;
+
+  @media (max-width: 750px) {
+    font-weight: 800;
+  }
 }
 
 a {
@@ -48,7 +53,7 @@ nav {
     display: none;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 750px) {
     #overlay-button {
       position: fixed;
       right: 2em;
@@ -149,7 +154,7 @@ nav {
   }
   // end mobile menu
   ul {
-    @media (min-width: 650px) {
+    @media (min-width: 750px) {
     position: absolute;
     right: 30px;
     top: 20px;
@@ -213,6 +218,11 @@ form {
       border: 2px solid $accent-color;
       outline: 1px solid white;
     }
+  }
+
+  input[type=checkbox]{
+    margin-right: 10px;
+    accent-color: $accent-color;
   }
 }
 
