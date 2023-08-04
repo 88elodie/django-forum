@@ -1,5 +1,11 @@
 //posts index
 .posts-container {
+    width: 95%;
+    margin:auto;
+    
+    @media (max-width: 750px) {
+        width: auto;
+    }
 
     .header{
 

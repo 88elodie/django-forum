@@ -44,6 +44,12 @@
 }
 
 .profile-form-container {
+    width: 75%;
+    margin: auto;
+    
+    @media (max-width: 750px) {
+        width: auto;
+    }
 
     h2{
         margin-bottom: 30px;
@@ -77,7 +83,7 @@
     h2 {
         margin-bottom: 30px;
     }
-    
+
     .alert {
         padding: 20px;
         margin-bottom: 10px;
