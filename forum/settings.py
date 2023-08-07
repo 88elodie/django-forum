@@ -26,15 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-8ee_0u%7zq-y+ud-g(&2k0_ygs%5y@*34ke3532d0ba)!=t_k+'
+SECRET_KEY = 'django-insecure-8ee_0u%7zq-y+ud-g(&2k0_ygs%5y@*34ke3532d0ba)!=t_k+'
 
-SECRET_KEY = os.environ["SECRET_KEY"]
+# SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["elodie.cloud", "www.elodie.cloud"]
+# add domain name
 
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -179,10 +180,11 @@ DJANGO_DRF_FILEPOND_UPLOAD_TMP = os.path.join(BASE_DIR, 'filepond-temp-uploads')
 DJANGO_DRF_FILEPOND_FILE_STORE_PATH = os.path.join(BASE_DIR, 'stored_uploads')
 
 # Security
+# change all to true and 1536000 for production server
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 3600
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
+SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False

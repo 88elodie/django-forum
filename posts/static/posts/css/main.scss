@@ -62,11 +62,12 @@
 
             &:first-child {
                 margin-right: 5px;
-
+                word-wrap: break-word;
             }
 
             &.body {
                 color: $light-grey;
+                word-wrap: break-word;
             }
 
             &.details {
@@ -75,6 +76,7 @@
                 }
                 color: $light-grey;
                 float: right;
+                word-wrap: break-word;
 
                 &:hover {
                     color: $light-grey;
@@ -195,6 +197,7 @@
         min-height: 100px;
         max-width: 100%;
         overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .button {
@@ -220,7 +223,7 @@
         display: flex;
         flex-flow: row nowrap;
         gap: 10px;
-        overflow: scroll;
+        overflow: auto;
         margin: 10px;
 
         img {

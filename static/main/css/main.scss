@@ -61,6 +61,9 @@ nav {
       z-index: 5;
       cursor: pointer;
       user-select: none;
+      background-color: $black;
+      border-radius: 5px;
+
       span {
           height: 4px;
           width: 35px;
@@ -278,6 +281,12 @@ p.info {
   margin-bottom: 15px;
   background-color: $light-grey;
   color: black;
+}
+
+// pagination
+
+.pagination {
+  margin-top: 10px;
 }
 
 // imports
