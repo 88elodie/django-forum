@@ -29,7 +29,7 @@ const csrfToken = getCookie('csrftoken');
 
 FilePond.setOptions({
     server: {
-        url: 'http://localhost:8000/fp',
+        url: 'https://elodie.cloud/fp',
         headers: {
             'X-CSRFToken': csrfToken,
           },
