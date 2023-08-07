@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MaxLengthValidator
 from posts.models import Post, Comment
+from django.db.models.signals import post_save
 
 User = settings.AUTH_USER_MODEL
 
@@ -22,6 +23,12 @@ class Profile(models.Model):
     ])
     profile_picture = models.CharField(max_length=2048, blank=True)
     get_comment_alerts = models.BooleanField(default=True)
+
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    post_save.connect(create_user_profile, sender=User)
 
 class Alert(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='alerts_received')
